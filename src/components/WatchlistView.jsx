@@ -1,9 +1,8 @@
 import React from 'react';
 import { Bookmark, ArrowUpRight, ArrowDownRight, TrendingUp, Trash2 } from 'lucide-react';
-import { STOCKS_DATA } from '../data/stocks';
 
-export function WatchlistView({ watchlist, toggleWatchlist, onSelectStock }) {
-  const watchedStocks = STOCKS_DATA.filter(s => watchlist.includes(s.symbol));
+export function WatchlistView({ stocks, watchlist, toggleWatchlist, onSelectStock }) {
+  const watchedStocks = stocks.filter(s => watchlist.includes(s.symbol));
 
   return (
     <div className="space-y-6 pb-16 animate-fadeIn">

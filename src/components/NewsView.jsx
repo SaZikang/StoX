@@ -1,8 +1,7 @@
 import React from 'react';
 import { Newspaper, Activity, ArrowUpRight, ArrowDownRight } from 'lucide-react';
-import { FINANCIAL_NEWS } from '../data/stocks';
 
-export function NewsView({ onSelectStock }) {
+export function NewsView({ newsList, onSelectStock }) {
   return (
     <div className="space-y-6 pb-16 animate-fadeIn">
       <div>
@@ -13,7 +12,7 @@ export function NewsView({ onSelectStock }) {
       </div>
 
       <div className="space-y-4">
-        {FINANCIAL_NEWS.map((news) => (
+        {newsList.map((news) => (
           <div key={news.id} className="bg-stox-card border border-stox-border rounded-2xl p-6 hover:border-stox-borderLight transition-all flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2 flex-1">
               <div className="flex items-center gap-3 text-xs">
@@ -32,7 +31,7 @@ export function NewsView({ onSelectStock }) {
               </span>
               <div className="flex items-center gap-1.5">
                 <span className="text-[11px] text-slate-500">Related:</span>
-                {news.related.map(sym => (
+                {news.related && news.related.map(sym => (
                   <span key={sym} className="px-2 py-0.5 rounded bg-stox-dark border border-stox-border font-mono text-[10px] text-slate-300">
                     {sym}
                   </span>
