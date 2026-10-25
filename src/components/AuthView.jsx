@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Lock, Mail, User, Key, CheckCircle2, Loader2, Sparkles, Sun, Moon } from 'lucide-react';
 import { supabase } from '../services/supabase';
+import { AnimatedMarketBackground } from './AnimatedMarketBackground';
 
 export function AuthView({ onBackToLanding, onSuccessAuth, theme, setTheme, onToggleTheme }) {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -74,32 +75,7 @@ export function AuthView({ onBackToLanding, onSuccessAuth, theme, setTheme, onTo
   return (
     <div className={`min-h-screen ${isLight ? 'bg-slate-50 text-slate-900' : 'bg-[#0b0f19] text-slate-100'} font-sans flex flex-col justify-between p-8 transition-colors duration-300 relative overflow-hidden`}>
       {/* Background Animated Chart Element */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <svg className="absolute w-full h-full" preserveAspectRatio="none" viewBox="0 0 1200 800">
-          <motion.path
-            d="M 0,400 Q 200,300 400,450 T 800,350 T 1200,380 L 1200,800 L 0,800 Z"
-            fill="url(#grad)"
-            initial={{ opacity: 0.3 }}
-            animate={{ opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.path
-            d="M 0,500 Q 300,350 600,480 T 1200,420"
-            fill="none"
-            stroke="#3b82f6"
-            strokeWidth="3"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <defs>
-            <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+      <AnimatedMarketBackground isLight={isLight} />
 
       {/* Top Header */}
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between z-10">
