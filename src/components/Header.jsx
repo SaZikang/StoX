@@ -1,16 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Key, User, Loader2, Sun, Moon, Camera } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, Key, User, Loader2, Sun, Moon, Camera, Settings, Sliders, LogOut, ShieldCheck, ChevronDown } from 'lucide-react';
 import { searchAlphaVantageSymbols } from '../services/alphavantage';
 import { StockLogo } from './StockLogo';
 import { getMarketStatus } from '../utils/marketHours';
 
-export function Header({ onSelectStock, onOpenApiKeyModal, hasApiKey, stocks, apiKey, user, onOpenAuthModal, theme, setTheme, onToggleTheme, onOpenSnapshotModal }) {
+export function Header({ onSelectStock, onOpenApiKeyModal, hasApiKey, stocks, apiKey, user, onOpenAuthModal, theme, setTheme, onToggleTheme, onOpenSnapshotModal, onOpenAccountModal, onLogout }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const searchRef = useRef(null);
+  const profileMenuRef = useRef(null);
 
   const isLight = theme === 'light';
 
@@ -24,6 +26,9 @@ export function Header({ onSelectStock, onOpenApiKeyModal, hasApiKey, stocks, ap
     function handleClickOutside(e) {
       if (searchRef.current && !searchRef.current.contains(e.target)) {
         setIsSearching(false);
+      }
+      if (profileMenuRef.current && !profileMenuRef.current.contains(e.target)) {
+        setIsProfileMenuOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -157,7 +162,7 @@ export function Header({ onSelectStock, onOpenApiKeyModal, hasApiKey, stocks, ap
         )}
       </motion.div>
 
-      {/* Right Actions: API Key, Market Status, Single Icon Theme Toggle, Profile */}
+      {/* Right Actions: API Key, Market Status, Snapshot, Theme Toggle, Profile Menu */}
       <div className="flex items-center gap-4">
         <button
           onClick={onOpenApiKeyModal}
@@ -222,22 +227,99 @@ export function Header({ onSelectStock, onOpenApiKeyModal, hasApiKey, stocks, ap
           )}
         </motion.button>
 
-        <button
-          onClick={onOpenAuthModal}
-          className={`flex items-center gap-2.5 pl-3 border-l ${isLight ? 'border-slate-200' : 'border-stox-border'} group text-left focus:outline-none`}
-        >
-          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-400 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-md group-hover:scale-105 transition-transform">
-            {user ? (user.email?.[0]?.toUpperCase() || 'U') : <User className="w-4 h-4" />}
-          </div>
-          <div className="hidden xl:block text-left">
-            <div className={`text-xs font-semibold ${isLight ? 'text-slate-800' : 'text-slate-200'} group-hover:text-blue-500 transition-colors truncate max-w-[100px]`}>
-              {user ? (user.user_metadata?.userid || user.email) : 'Sign In'}
+        {/* Profile Dropdown Menu */}
+        <div className="relative" ref={profileMenuRef}>
+          <button
+            onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+            className={`flex items-center gap-2.5 pl-3 border-l ${isLight ? 'border-slate-200' : 'border-stox-border'} group text-left focus:outline-none cursor-pointer`}
+          >
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-400 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-md group-hover:scale-105 transition-transform">
+              {user ? (user.email?.[0]?.toUpperCase() || 'U') : <User className="w-4 h-4" />}
             </div>
-            <div className="text-[10px] text-blue-500 font-mono">
-              {user ? 'Supabase' : 'Login'}
+            <div className="hidden xl:block text-left">
+              <div className={`text-xs font-semibold ${isLight ? 'text-slate-800' : 'text-slate-200'} group-hover:text-blue-500 transition-colors truncate max-w-[100px]`}>
+                {user ? (user.user_metadata?.userid || user.email) : 'Account'}
+              </div>
+              <div className="text-[10px] text-blue-500 font-mono flex items-center gap-0.5">
+                <span>{user ? 'Pro' : 'Guest'}</span>
+                <ChevronDown className="w-3 h-3" />
+              </div>
             </div>
-          </div>
-        </button>
+          </button>
+
+          <AnimatePresence>
+            {isProfileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className={`absolute right-0 mt-3 w-56 rounded-2xl border shadow-2xl py-2 z-50 backdrop-blur-xl ${
+                  isLight ? 'bg-white border-slate-200 text-slate-900' : 'bg-[#111827] border-slate-800 text-slate-100'
+                }`}
+              >
+                <div className={`px-4 py-3 border-b ${isLight ? 'border-slate-100 bg-slate-50/50' : 'border-slate-800/80 bg-slate-900/50'}`}>
+                  <div className="text-xs font-bold truncate">{user?.user_metadata?.userid || user?.email || 'Guest Trader'}</div>
+                  <div className="text-[10px] font-mono text-blue-500">{user?.email || 'guest@stox.com'}</div>
+                </div>
+
+                <div className="p-1.5 space-y-0.5">
+                  <button
+                    onClick={() => {
+                      setIsProfileMenuOpen(false);
+                      onOpenAccountModal();
+                    }}
+                    className={`w-full px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+                      isLight ? 'hover:bg-slate-100 text-slate-700' : 'hover:bg-slate-800 text-slate-300'
+                    }`}
+                  >
+                    <User className="w-4 h-4 text-blue-500" />
+                    <span>Account Info</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setIsProfileMenuOpen(false);
+                      onOpenApiKeyModal();
+                    }}
+                    className={`w-full px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+                      isLight ? 'hover:bg-slate-100 text-slate-700' : 'hover:bg-slate-800 text-slate-300'
+                    }`}
+                  >
+                    <Sliders className="w-4 h-4 text-emerald-500" />
+                    <span>Settings &amp; API</span>
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      setIsProfileMenuOpen(false);
+                      onToggleTheme(e);
+                    }}
+                    className={`w-full px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+                      isLight ? 'hover:bg-slate-100 text-slate-700' : 'hover:bg-slate-800 text-slate-300'
+                    }`}
+                  >
+                    {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-600" />}
+                    <span>Toggle Theme ({theme === 'dark' ? 'Light' : 'Dark'})</span>
+                  </button>
+                </div>
+
+                <div className={`pt-1.5 mt-1 border-t ${isLight ? 'border-slate-100' : 'border-slate-800'}`}>
+                  <button
+                    onClick={() => {
+                      setIsProfileMenuOpen(false);
+                      onLogout();
+                    }}
+                    className="w-full px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2.5 text-rose-500 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Log Out</span>
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </header>
   );

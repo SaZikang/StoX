@@ -18,6 +18,7 @@ import { AuthModal } from './components/AuthModal';
 import { SnapshotModal } from './components/SnapshotModal';
 import { LandingView } from './components/LandingView';
 import { AuthView } from './components/AuthView';
+import { AccountModal } from './components/AccountModal';
 
 export default function App() {
   const [appView, setAppView] = useState('landing'); // 'landing' | 'auth' | 'app'
@@ -27,6 +28,7 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSnapshotModalOpen, setIsSnapshotModalOpen] = useState(false);
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [theme, setTheme] = useState(() => localStorage.getItem('stox_theme') || 'dark');
 
   useEffect(() => {
@@ -302,6 +304,15 @@ export default function App() {
     document.startViewTransition(updateTheme);
   };
 
+  const handleLogout = async () => {
+    if (supabase) {
+      await supabase.auth.signOut();
+    }
+    localStorage.removeItem('stox_guest_user');
+    setUser(null);
+    setAppView('landing');
+  };
+
   if (appView === 'landing') {
     return (
       <LandingView
@@ -361,6 +372,8 @@ export default function App() {
           setTheme={setTheme}
           onToggleTheme={handleThemeToggle}
           onOpenSnapshotModal={() => setIsSnapshotModalOpen(true)}
+          onOpenAccountModal={() => setIsAccountModalOpen(true)}
+          onLogout={handleLogout}
         />
 
         {/* Live Index Ticker Tape */}
@@ -466,6 +479,15 @@ export default function App() {
           onClose={() => setIsAuthModalOpen(false)}
           user={user}
           setUser={setUser}
+        />
+
+        {/* Account Modal */}
+        <AccountModal
+          isOpen={isAccountModalOpen}
+          onClose={() => setIsAccountModalOpen(false)}
+          user={user}
+          onLogout={handleLogout}
+          theme={theme}
         />
 
         {/* Snapshot Modal */}
