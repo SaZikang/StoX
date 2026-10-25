@@ -5,11 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:news-api": "python3 api_server.py",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
     "clsx": "^2.1.1",
+    "framer-motion": "^14.6.0",
     "lucide-react": "^1.16.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

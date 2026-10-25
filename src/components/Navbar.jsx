@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { TrendingUp, Search, Bell, User, Bookmark, Globe, BarChart2, Newspaper, LayoutDashboard, Key, Loader2 } from 'lucide-react';
-import { searchFinnhubSymbols } from '../services/finnhub';
+import { TrendingUp, Search, Bell, User, Bookmark, Globe, BarChart2, Newspaper, LayoutDashboard, Key, Loader2, Wallet } from 'lucide-react';
+import { searchAlphaVantageSymbols } from '../services/alphavantage';
+import { StockLogo } from './StockLogo';
 
-export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setWatchlist, onOpenApiKeyModal, hasApiKey, stocks, apiKey }) {
+export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setWatchlist, onOpenApiKeyModal, hasApiKey, stocks, apiKey, user, onOpenAuthModal, theme = 'dark' }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -26,7 +27,7 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Debounced live global search via Finnhub when API key is present
+  // Debounced live global search via Alpha Vantage when API key is present
   useEffect(() => {
     if (!searchQuery.trim()) {
       setSearchResults(localFiltered);
@@ -39,7 +40,7 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
       let combined = [...localFiltered];
 
       if (apiKey) {
-        const remoteResults = await searchFinnhubSymbols(searchQuery, apiKey);
+        const remoteResults = await searchAlphaVantageSymbols(searchQuery, apiKey);
         // Merge without duplicates
         const existingSymbols = new Set(combined.map(s => s.symbol.toUpperCase()));
         for (const r of remoteResults) {
@@ -101,6 +102,17 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
               Watchlist ({watchlist.length})
             </button>
             <button
+              onClick={() => setActiveTab('portfolio')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                activeTab === 'portfolio'
+                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-stox-cardHover'
+              }`}
+            >
+              <Wallet className="w-3.5 h-3.5" />
+              Portfolio
+            </button>
+            <button
               onClick={() => setActiveTab('news')}
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 activeTab === 'news'
@@ -120,7 +132,7 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
             <Search className="absolute left-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
             <input
               type="text"
-              placeholder="Search any global stock (e.g. NOW, MU, NVDA, Apple)..."
+              placeholder="Search any global stock (e.g. AAPL, TSLA, MSFT)..."
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -147,7 +159,7 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
             <div className="absolute top-full left-0 right-0 mt-2 bg-stox-card border border-stox-border rounded-xl shadow-2xl overflow-hidden z-50 backdrop-blur-xl">
               <div className="p-2 text-[11px] font-semibold text-slate-500 uppercase tracking-wider px-3 border-b border-stox-border flex items-center justify-between">
                 <span>Matching Global Instruments ({searchResults.length})</span>
-                {!hasApiKey && <span className="text-[10px] text-blue-400">Connect live API for full world search</span>}
+                {!hasApiKey && <span className="text-[10px] text-blue-400">Connect Alpha Vantage API for full world search</span>}
               </div>
               <div className="max-h-80 overflow-y-auto divide-y divide-stox-border/50">
                 {searchResults.length > 0 ? (
@@ -162,12 +174,10 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
                       className="w-full px-4 py-3 flex items-center justify-between hover:bg-stox-cardHover transition-colors text-left group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-stox-dark border border-stox-border flex items-center justify-center font-mono font-bold text-xs text-blue-400 group-hover:border-blue-500/50">
-                          {stock.symbol}
-                        </div>
+                        <StockLogo symbol={stock.symbol} className="w-10 h-10" theme={theme} />
                         <div>
                           <div className="text-sm font-semibold text-slate-200">{stock.name}</div>
-                          <div className="text-xs text-slate-500">{stock.sector}</div>
+                          <div className="text-xs text-slate-500 font-mono">{stock.symbol} • {stock.sector}</div>
                         </div>
                       </div>
                       <div className="text-right">
@@ -181,7 +191,7 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
                 ) : (
                   <div className="p-6 text-center text-sm text-slate-500">
                     No matching instruments found for "{searchQuery}".
-                    {!hasApiKey && <div className="text-xs text-blue-400 mt-1">Tip: Connect your free Finnhub API key to search any international stock or symbol.</div>}
+                    {!hasApiKey && <div className="text-xs text-blue-400 mt-1">Tip: Connect your free Alpha Vantage API key to search any international stock or symbol.</div>}
                   </div>
                 )}
               </div>
@@ -191,7 +201,7 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
-          {/* Finnhub API Key Button */}
+          {/* Alpha Vantage API Key Button */}
           <button
             onClick={onOpenApiKeyModal}
             className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono transition-all ${
@@ -199,29 +209,36 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
                 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20'
                 : 'bg-blue-600/10 border-blue-500/30 text-blue-400 hover:bg-blue-600/20 animate-pulse'
             }`}
-            title="Configure Finnhub API Key for Live Data"
+            title="Configure Alpha Vantage API Key for Live Data"
           >
             <Key className="w-3.5 h-3.5" />
-            {hasApiKey ? 'Live API Connected' : 'Connect Finnhub Live'}
+            {hasApiKey ? 'Alpha Vantage Connected' : 'Connect Alpha Vantage'}
           </button>
 
           <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-xs font-mono text-emerald-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
             NYSE / NASDAQ OPEN
           </div>
 
-          <div className="flex items-center gap-2.5 pl-2 border-l border-stox-border">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-md">
-              ZK
+          <button
+            onClick={onOpenAuthModal}
+            className="flex items-center gap-2.5 pl-2 border-l border-stox-border group text-left focus:outline-none"
+          >
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-md group-hover:scale-105 transition-transform">
+              {user ? (user.email?.[0]?.toUpperCase() || 'U') : <User className="w-4 h-4" />}
             </div>
             <div className="hidden xl:block text-left">
-              <div className="text-xs font-semibold text-slate-200">Zikang Sa</div>
-              <div className="text-[10px] text-blue-400 font-mono">Pro Trader</div>
+              <div className="text-xs font-semibold text-slate-200 group-hover:text-blue-400 transition-colors truncate max-w-[120px]">
+                {user ? (user.user_metadata?.userid || user.email) : 'Sign In'}
+              </div>
+              <div className="text-[10px] text-blue-400 font-mono">
+                {user ? 'Supabase Synced' : 'Click to Login'}
+              </div>
             </div>
-          </div>
+          </button>
         </div>
 
-      </div>
+              </div>
     </header>
   );
 }

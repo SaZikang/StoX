@@ -9,8 +9,9 @@ export function ApiKeyModal({ isOpen, onClose, apiKey, setApiKey }) {
 
   const handleSave = (e) => {
     e.preventDefault();
-    setApiKey(inputKey.trim());
-    localStorage.setItem('stox_finnhub_key', inputKey.trim());
+    const trimmed = inputKey.trim();
+    setApiKey(trimmed);
+    localStorage.setItem('stox_alphavantage_key', trimmed);
     setSaved(true);
     setTimeout(() => {
       setSaved(false);
@@ -33,8 +34,8 @@ export function ApiKeyModal({ isOpen, onClose, apiKey, setApiKey }) {
             <Key className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-slate-100">Finnhub Live API Key</h3>
-            <p className="text-xs text-slate-400">Connect live, up-to-date market data</p>
+            <h3 className="text-lg font-bold text-slate-100">Alpha Vantage API Key</h3>
+            <p className="text-xs text-slate-400">Connect live global quotes & sentiment data</p>
           </div>
         </div>
 
@@ -44,15 +45,15 @@ export function ApiKeyModal({ isOpen, onClose, apiKey, setApiKey }) {
               <Check className="w-6 h-6" />
             </div>
             <div className="text-base font-bold text-emerald-400">API Key Saved Successfully!</div>
-            <p className="text-xs text-slate-400">StoX is now fetching live, changing prices from Finnhub.</p>
+            <p className="text-xs text-slate-400">StoX is now fetching live market prices from Alpha Vantage.</p>
           </div>
         ) : (
           <form onSubmit={handleSave} className="space-y-4">
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-400 uppercase">Enter Finnhub API Key</label>
+              <label className="text-xs font-semibold text-slate-400 uppercase">Enter Alpha Vantage API Key</label>
               <input
                 type="password"
-                placeholder="e.g. cxxxx... (free at finnhub.io)"
+                placeholder="e.g. DEMO or your key (free at alphavantage.co)"
                 value={inputKey}
                 onChange={(e) => setInputKey(e.target.value)}
                 className="w-full bg-stox-dark border border-stox-border rounded-xl px-4 py-2.5 text-sm font-mono text-slate-100 focus:outline-none focus:border-blue-500"
@@ -60,12 +61,12 @@ export function ApiKeyModal({ isOpen, onClose, apiKey, setApiKey }) {
               <p className="text-[11px] text-slate-500 flex items-center gap-1">
                 Get a free API key instantly at{' '}
                 <a
-                  href="https://finnhub.io/"
+                  href="https://www.alphavantage.co/support/#api-key"
                   target="_blank"
                   rel="noreferrer"
                   className="text-blue-400 hover:underline flex items-center gap-0.5"
                 >
-                  finnhub.io <ExternalLink className="w-3 h-3" />
+                  alphavantage.co <ExternalLink className="w-3 h-3" />
                 </a>
               </p>
             </div>
@@ -74,14 +75,14 @@ export function ApiKeyModal({ isOpen, onClose, apiKey, setApiKey }) {
               <div className="font-semibold text-slate-300 flex items-center gap-1.5">
                 <Shield className="w-3.5 h-3.5 text-blue-400" /> Secure Storage
               </div>
-              <p>Your API key is stored securely in your browser's localStorage and is never sent anywhere except directly to Finnhub for live quotes.</p>
+              <p>Your API key is stored securely in your browser's localStorage and is sent directly to Alpha Vantage for live global quotes.</p>
             </div>
 
             <button
               type="submit"
               className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 transition-all"
             >
-              Save & Activate Live Feed
+              Save & Activate Alpha Vantage Feed
             </button>
           </form>
         )}

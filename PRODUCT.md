@@ -30,7 +30,8 @@ Desktop and mobile web browsers. Fast-paced market monitoring, technical analysi
 
 - Home page with top gainers, top losers, high-growth stocks, and live search bar.
 - Stock detail page with live metrics, multi-timeframe charts (Hour, Day, Week, Month), and drawing/indicator toolbar.
-- Interactive news feed tied to selected stocks.
+- Interactive ticker-specific news feed using yfinance, showing Yahoo Finance headlines, publisher, release time, available summary, and the original publisher link. Full article text is read at the original source.
+- Local news API setup: run `python3 -m pip install -r requirements.txt`, then run `npm run dev` and `npm run dev:news-api` in separate terminals; Vite proxies news requests to the local API.
 - Responsive modern dark-mode financial UI.
 
 ## Brand Commitments

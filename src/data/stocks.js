@@ -14,11 +14,11 @@ export const COUNTRY_STOCKS = {
     { symbol: '5183.KL', name: 'Petronas Chemicals', price: 5.48, change: -0.10, changePercent: -1.79, positive: false, sector: 'Chemicals', country: 'Malaysia', marketCap: '43.8B MYR' }
   ],
   us: [
-    { symbol: 'NVDA', name: 'NVIDIA Corporation', price: 139.50, change: 6.80, changePercent: 5.13, positive: true, sector: 'Semiconductors', country: 'United States', marketCap: '3.42T' },
-    { symbol: 'AAPL', name: 'Apple Inc.', price: 235.60, change: 3.40, changePercent: 1.46, positive: true, sector: 'Consumer Electronics', country: 'United States', marketCap: '3.58T' },
-    { symbol: 'MSFT', name: 'Microsoft Corporation', price: 422.50, change: 5.10, changePercent: 1.22, positive: true, sector: 'Cloud & AI', country: 'United States', marketCap: '3.14T' },
-    { symbol: 'TSLA', name: 'Tesla, Inc.', price: 218.40, change: -11.60, changePercent: -5.04, positive: false, sector: 'Automotive', country: 'United States', marketCap: '698.2B' },
-    { symbol: 'AMZN', name: 'Amazon.com, Inc.', price: 186.40, change: 3.20, changePercent: 1.75, positive: true, sector: 'E-Commerce', country: 'United States', marketCap: '1.94T' }
+    { symbol: 'GOOGL', name: 'Alphabet Inc. (Google)', price: 178.20, change: 2.40, changePercent: 1.36, positive: true, sector: 'Internet & AI', country: 'United States', marketCap: '2.18T' },
+    { symbol: 'META', name: 'Meta Platforms, Inc.', price: 582.40, change: 12.10, changePercent: 2.12, positive: true, sector: 'Social Media & AI', country: 'United States', marketCap: '1.48T' },
+    { symbol: 'AMZN', name: 'Amazon.com, Inc.', price: 186.40, change: 3.20, changePercent: 1.75, positive: true, sector: 'E-Commerce & Cloud', country: 'United States', marketCap: '1.94T' },
+    { symbol: 'AMD', name: 'Advanced Micro Devices', price: 156.30, change: -2.40, changePercent: -1.51, positive: false, sector: 'Semiconductors', country: 'United States', marketCap: '252.1B' },
+    { symbol: 'NFLX', name: 'Netflix, Inc.', price: 724.50, change: 14.20, changePercent: 2.00, positive: true, sector: 'Streaming & Entertainment', country: 'United States', marketCap: '312.8B' }
   ],
   china: [
     { symbol: 'BABA', name: 'Alibaba Group Holding Ltd', price: 98.40, change: 4.20, changePercent: 4.45, positive: true, sector: 'E-Commerce', country: 'China', marketCap: '236.5B' },
@@ -33,7 +33,7 @@ export const COUNTRY_STOCKS = {
   ]
 };
 
-export const STOCKS_DATA = [
+const raw_stocks = [
   ...COUNTRY_STOCKS.malaysia,
   ...COUNTRY_STOCKS.us,
   ...COUNTRY_STOCKS.china,
@@ -157,8 +157,59 @@ export const STOCKS_DATA = [
     sparkline: [417.4, 418.5, 419.2, 420.1, 421.0, 421.8, 422.5],
     history: { '1H': [422.0, 422.5], '1D': [417.4, 420.5, 422.5], '1W': [410.0, 418.0, 422.5], '1M': [400.0, 415.0, 422.5] },
     news: [{ id: 1, title: 'Azure Cloud Growth Accelerates Due to Enterprise AI', time: '4h ago', source: 'CNBC', sentiment: 'bullish' }]
+  },
+  {
+    symbol: 'IREN',
+    name: 'Iris Energy Limited',
+    price: 14.80,
+    change: 1.25,
+    changePercent: 9.23,
+    positive: true,
+    category: 'gainer',
+    highGrowth: true,
+    marketCap: '1.28B',
+    peRatio: 18.4,
+    high52: 15.60,
+    low52: 3.10,
+    volume: '34.2M',
+    sector: 'AI Cloud & Data Centers',
+    description: 'Iris Energy owns and operates 100% renewable energy powered data centers for bitcoin mining and high-performance AI cloud computing.',
+    sparkline: [12.5, 13.0, 13.2, 13.8, 14.1, 14.5, 14.8],
+    history: { '1H': [14.6, 14.8], '1D': [13.2, 14.0, 14.8], '1W': [11.5, 13.0, 14.8], '1M': [9.2, 11.0, 13.5, 14.8] },
+    news: [{ id: 1, title: 'Iris Energy Expands AI Cloud GPU Capacity with NVIDIA Hardware', time: '1h ago', source: 'CoinDesk', sentiment: 'bullish' }]
+  },
+  {
+    symbol: 'SOFI',
+    name: 'SoFi Technologies, Inc.',
+    price: 15.40,
+    change: 0.85,
+    changePercent: 5.84,
+    positive: true,
+    category: 'growth',
+    highGrowth: true,
+    marketCap: '15.9B',
+    peRatio: 42.1,
+    high52: 16.20,
+    low52: 6.01,
+    volume: '48.9M',
+    sector: 'Digital Banking & Fintech',
+    description: 'SoFi Technologies is a digital financial services company offering digital banking, lending, and investing products.',
+    sparkline: [14.0, 14.2, 14.5, 14.8, 15.0, 15.2, 15.4],
+    history: { '1H': [15.2, 15.4], '1D': [14.2, 14.8, 15.4], '1W': [13.5, 14.5, 15.4], '1M': [12.0, 13.5, 14.8, 15.4] },
+    news: [{ id: 1, title: 'SoFi Reports Record Member Growth and Profitable Quarter', time: '2h ago', source: 'Bloomberg', sentiment: 'bullish' }]
   }
 ];
+
+// Deduplicate STOCKS_DATA by symbol, giving precedence to rich objects
+const stockMap = new Map();
+raw_stocks.forEach(stock => {
+  // If we already have this symbol and the new one has history/news, override; otherwise keep unique
+  if (!stockMap.has(stock.symbol) || stock.history) {
+    stockMap.set(stock.symbol, stock);
+  }
+});
+
+export const STOCKS_DATA = Array.from(stockMap.values());
 
 export const FINANCIAL_NEWS = [
   {

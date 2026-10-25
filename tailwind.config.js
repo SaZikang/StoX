@@ -9,18 +9,20 @@ export default {
     extend: {
       colors: {
         stox: {
-          dark: '#0a0b0e',
-          card: '#12141a',
-          cardHover: '#1a1d26',
-          border: '#222632',
-          borderLight: '#2f3542',
-          accent: '#3b82f6',
-          accentHover: '#2563eb',
-          green: '#10b981',
-          greenBg: 'rgba(16, 185, 129, 0.1)',
-          red: '#ef4444',
-          redBg: 'rgba(239, 68, 68, 0.1)',
-          muted: '#94a3b8',
+          dark: '#0b0e14',
+          card: '#131722',
+          cardHover: '#1e222d',
+          border: '#2a2e39',
+          borderLight: '#363c4e',
+          accent: '#2962ff',
+          accentHover: '#1e48e8',
+          green: '#00b42a',
+          greenBg: 'rgba(0, 180, 42, 0.1)',
+          red: '#f53f3f',
+          redBg: 'rgba(245, 63, 63, 0.1)',
+          muted: '#848e9c',
+          blurple: '#5865F2',
+          success: '#10B981',
         }
       },
       fontFamily: {
