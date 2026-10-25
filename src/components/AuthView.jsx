@@ -72,9 +72,37 @@ export function AuthView({ onBackToLanding, onSuccessAuth, theme, setTheme, onTo
   };
 
   return (
-    <div className={`min-h-screen ${isLight ? 'bg-slate-50 text-slate-900' : 'bg-[#0b0f19] text-slate-100'} font-sans flex flex-col justify-between p-8 transition-colors duration-300`}>
+    <div className={`min-h-screen ${isLight ? 'bg-slate-50 text-slate-900' : 'bg-[#0b0f19] text-slate-100'} font-sans flex flex-col justify-between p-8 transition-colors duration-300 relative overflow-hidden`}>
+      {/* Background Animated Chart Element */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+        <svg className="absolute w-full h-full" preserveAspectRatio="none" viewBox="0 0 1200 800">
+          <motion.path
+            d="M 0,400 Q 200,300 400,450 T 800,350 T 1200,380 L 1200,800 L 0,800 Z"
+            fill="url(#grad)"
+            initial={{ opacity: 0.3 }}
+            animate={{ opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.path
+            d="M 0,500 Q 300,350 600,480 T 1200,420"
+            fill="none"
+            stroke="#3b82f6"
+            strokeWidth="3"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
       {/* Top Header */}
-      <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
+      <div className="max-w-7xl mx-auto w-full flex items-center justify-between z-10">
         <button
           onClick={onBackToLanding}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold border transition-all ${
@@ -99,13 +127,13 @@ export function AuthView({ onBackToLanding, onSuccessAuth, theme, setTheme, onTo
       </div>
 
       {/* Auth Card Container */}
-      <div className="max-w-md mx-auto w-full py-12">
+      <div className="max-w-md mx-auto w-full py-12 z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className={`p-8 md:p-10 rounded-3xl border shadow-2xl ${
-            isLight ? 'bg-white border-slate-200 shadow-slate-200/50' : 'bg-stox-card border-stox-border shadow-black/50'
+          className={`p-8 md:p-10 rounded-3xl border shadow-2xl backdrop-blur-md ${
+            isLight ? 'bg-white/90 border-slate-200 shadow-slate-200/50' : 'bg-stox-card/90 border-stox-border shadow-black/50'
           }`}
         >
           <div className="text-center mb-8">
@@ -125,7 +153,7 @@ export function AuthView({ onBackToLanding, onSuccessAuth, theme, setTheme, onTo
             <button
               type="button"
               onClick={() => { setIsSignUp(false); setError(''); setSuccessMsg(''); }}
-              className={`py-2.5 rounded-xl font-mono text-xs font-bold transition-all ${
+              className={`py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
                 !isSignUp ? 'bg-blue-600 text-white shadow-md' : isLight ? 'text-slate-600 hover:text-slate-900' : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -134,7 +162,7 @@ export function AuthView({ onBackToLanding, onSuccessAuth, theme, setTheme, onTo
             <button
               type="button"
               onClick={() => { setIsSignUp(true); setError(''); setSuccessMsg(''); }}
-              className={`py-2.5 rounded-xl font-mono text-xs font-bold transition-all ${
+              className={`py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
                 isSignUp ? 'bg-blue-600 text-white shadow-md' : isLight ? 'text-slate-600 hover:text-slate-900' : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -238,7 +266,7 @@ export function AuthView({ onBackToLanding, onSuccessAuth, theme, setTheme, onTo
         </motion.div>
       </div>
 
-      <div className="max-w-7xl mx-auto w-full text-center text-xs font-mono text-slate-500">
+      <div className="max-w-7xl mx-auto w-full text-center text-xs font-mono text-slate-500 z-10">
         StoX Financial Systems • Secure Terminal Gateway
       </div>
     </div>

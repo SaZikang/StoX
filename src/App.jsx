@@ -307,6 +307,7 @@ export default function App() {
       <LandingView
         onEnterApp={() => setAppView('app')}
         onOpenAuth={() => setAppView('auth')}
+        user={user}
         theme={theme}
         setTheme={setTheme}
         onToggleTheme={handleThemeToggle}

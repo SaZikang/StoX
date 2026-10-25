@@ -3,9 +3,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { TrendingUp, ArrowRight, ShieldCheck, Zap, BarChart2, Newspaper, Wallet, Globe, Lock, CheckCircle2, Sun, Moon, Sparkles, Activity } from 'lucide-react';
 import { StockLogo } from './StockLogo';
 
-export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleTheme }) {
+export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onToggleTheme }) {
   const [activeFeatureTab, setActiveFeatureTab] = useState(0);
   const isLight = theme === 'light';
+
+  const handleProtectedAction = (action) => {
+    if (!user) {
+      onOpenAuth();
+    } else {
+      action();
+    }
+  };
 
   const features = [
     {
@@ -63,7 +71,6 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
           <a href="#features" className={`hover:text-blue-500 transition-colors ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>FEATURES</a>
           <a href="#demo" className={`hover:text-blue-500 transition-colors ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>LIVE PREVIEW</a>
           <a href="#markets" className={`hover:text-blue-500 transition-colors ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>GLOBAL SESSIONS</a>
-          <a href="#pricing" className={`hover:text-blue-500 transition-colors ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>API & ACCESS</a>
         </nav>
 
         <div className="flex items-center gap-4">
@@ -84,20 +91,20 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
 
           <button
             onClick={onOpenAuth}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold border transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold border transition-all cursor-pointer ${
               isLight
                 ? 'bg-slate-900 border-slate-900 text-white hover:bg-slate-800 shadow-md'
                 : 'bg-white border-white text-slate-900 hover:bg-slate-200 shadow-md'
             }`}
           >
-            Sign In / Register
+            {user ? 'My Account' : 'Sign In / Register'}
           </button>
 
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            onClick={onEnterApp}
-            className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 text-white font-mono text-xs font-bold shadow-lg shadow-blue-600/30 hover:bg-blue-500 transition-all"
+            onClick={() => handleProtectedAction(onEnterApp)}
+            className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 text-white font-mono text-xs font-bold shadow-lg shadow-blue-600/30 hover:bg-blue-500 transition-all cursor-pointer"
           >
             <span>Launch Terminal</span>
             <ArrowRight className="w-4 h-4" />
@@ -111,7 +118,7 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
         <div className="absolute top-1/4 right-10 w-[300px] h-[300px] bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none"></div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
@@ -135,7 +142,7 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={onEnterApp}
+              onClick={() => handleProtectedAction(onEnterApp)}
               className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-blue-600 text-white font-mono text-sm font-bold shadow-xl shadow-blue-600/30 flex items-center justify-center gap-3 cursor-pointer hover:bg-blue-500 transition-all"
             >
               <span>Explore Live Terminal</span>
@@ -152,18 +159,19 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
                   : 'bg-slate-900/80 border-slate-800 text-slate-200 hover:bg-slate-800'
               }`}
             >
-              Create Free Account
+              {user ? 'Open Dashboard' : 'Create Free Account'}
             </motion.button>
           </div>
         </motion.div>
 
-        {/* Hero Preview Card */}
+        {/* Hero Preview Card with Scroll Float Animation */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
           className="mt-16 relative max-w-5xl mx-auto rounded-3xl overflow-hidden border shadow-2xl group cursor-pointer"
-          onClick={onEnterApp}
+          onClick={() => handleProtectedAction(onEnterApp)}
         >
           <div className="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none"></div>
           <img
@@ -174,8 +182,15 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
         </motion.div>
       </section>
 
-      {/* Feature Showcase Section with Tabs */}
-      <section id="features" className={`py-24 px-8 ${isLight ? 'bg-slate-100/75 border-y border-slate-200' : 'bg-slate-900/40 border-y border-slate-800/80'}`}>
+      {/* Feature Showcase Section with Scroll Float */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        id="features"
+        className={`py-24 px-8 ${isLight ? 'bg-slate-100/75 border-y border-slate-200' : 'bg-slate-900/40 border-y border-slate-800/80'}`}
+      >
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-mono font-bold text-blue-500 uppercase tracking-widest mb-3 block">Platform Capability</span>
@@ -211,9 +226,9 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
           <AnimatePresence mode="wait">
             <motion.div
               key={activeFeatureTab}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
               className={`grid grid-cols-1 lg:grid-cols-12 gap-10 items-center rounded-3xl p-8 md:p-12 border ${
                 isLight ? 'bg-white border-slate-200 shadow-xl' : 'bg-stox-card border-stox-border shadow-2xl'
@@ -234,7 +249,7 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
                 </p>
                 <div className="pt-4">
                   <button
-                    onClick={onEnterApp}
+                    onClick={() => handleProtectedAction(onEnterApp)}
                     className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer"
                   >
                     <span>Test This Feature</span>
@@ -253,10 +268,17 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
             </motion.div>
           </AnimatePresence>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Global Sessions & Markets Banner */}
-      <section id="markets" className="py-20 px-8 max-w-7xl mx-auto text-center">
+      {/* Global Sessions & Markets Banner with Scroll Float */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        id="markets"
+        className="py-20 px-8 max-w-7xl mx-auto text-center"
+      >
         <span className="text-xs font-mono font-bold text-emerald-500 uppercase tracking-widest mb-3 block">Global Liquidity</span>
         <h2 className={`text-3xl md:text-4xl font-extrabold tracking-tight mb-6 ${isLight ? 'text-slate-900' : 'text-white'}`}>
           Live Global Market Sessions
@@ -272,8 +294,12 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
             { session: 'London Session', time: '08:00 – 17:00 GMT', desc: 'Most active & liquid European window' },
             { session: 'New York Session', time: '13:00 – 22:00 GMT', desc: 'High-volume North American session' }
           ].map((s, idx) => (
-            <div
+            <motion.div
               key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
               className={`p-6 rounded-2xl border text-left transition-all hover:scale-[1.02] ${
                 isLight ? 'bg-white border-slate-200 shadow-md' : 'bg-stox-card border-stox-border shadow-lg'
               }`}
@@ -287,10 +313,10 @@ export function LandingView({ onEnterApp, onOpenAuth, theme, setTheme, onToggleT
               <h4 className={`text-sm font-bold mb-1 ${isLight ? 'text-slate-900' : 'text-white'}`}>{s.session}</h4>
               <div className="text-xs font-mono text-blue-500 font-semibold mb-2">{s.time}</div>
               <p className={`text-xs ${isLight ? 'text-slate-500' : 'text-slate-300'}`}>{s.desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
       <footer className={`py-12 px-8 border-t ${isLight ? 'bg-slate-100 border-slate-200 text-slate-600' : 'bg-slate-950 border-slate-900 text-slate-300'}`}>
