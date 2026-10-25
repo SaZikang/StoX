@@ -1,7 +1,7 @@
 import { supabase } from '../services/supabase';
 
 export async function recordPortfolioSnapshot(user, totalValue) {
-  if (!totalValue || isNaN(totalValue)) return;
+  if (totalValue === undefined || totalValue === null || isNaN(totalValue)) return;
   const todayStr = new Date().toISOString().split('T')[0]; // 'YYYY-MM-DD'
 
   if (user && supabase) {
@@ -77,26 +77,14 @@ export async function fetchPortfolioHistory(user, currentTotalEquity) {
     }
   }
 
-  // Ensure today's current equity is recorded/updated
-  if (currentTotalEquity > 0) {
+  // Ensure today's current equity is recorded/updated naturally
+  if (currentTotalEquity >= 0) {
     const todayFormatted = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' });
     const todayIdx = history.findIndex(h => h.rawDate === todayStr || h.date === todayFormatted);
     if (todayIdx >= 0) {
       history[todayIdx].val = currentTotalEquity;
     } else {
-      if (history.length === 0) {
-        // Seed past 5 days with realistic progression leading up to current total
-        for (let i = 5; i >= 1; i--) {
-          const d = new Date();
-          d.setDate(d.getDate() - i);
-          const pastVal = currentTotalEquity * (1 - (i * 0.005));
-          history.push({
-            date: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' }),
-            val: pastVal,
-            rawDate: d.toISOString().split('T')[0]
-          });
-        }
-      }
+      // First day starts cleanly with today's value without fake past values
       history.push({
         date: todayFormatted,
         val: currentTotalEquity,
