@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { TrendingUp, Search, Bell, User, Bookmark, Globe, BarChart2, Newspaper, LayoutDashboard, Key, Loader2, Wallet } from 'lucide-react';
 import { searchAlphaVantageSymbols } from '../services/alphavantage';
 import { StockLogo } from './StockLogo';
+import { getMarketStatus } from '../utils/marketHours';
 
 export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setWatchlist, onOpenApiKeyModal, hasApiKey, stocks, apiKey, user, onOpenAuthModal, theme = 'dark' }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -215,10 +216,22 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
             {hasApiKey ? 'Alpha Vantage Connected' : 'Connect Alpha Vantage'}
           </button>
 
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-xs font-mono text-emerald-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-            NYSE / NASDAQ OPEN
-          </div>
+          {(() => {
+            const marketStatus = getMarketStatus();
+            return (
+              <div
+                className={`hidden lg:flex items-center gap-2 px-3 py-1.5 ${
+                  marketStatus.isOpen
+                    ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+                    : 'bg-rose-500/10 border-rose-500/20 text-rose-400'
+                } border rounded-lg text-xs font-mono`}
+                title={`US Trading Hours: 9:30 AM – 4:00 PM ET\nMalaysia Time (MYT): ${marketStatus.mytHours} (${marketStatus.isEDT ? 'EDT UTC-4' : 'EST UTC-5'})`}
+              >
+                <span className={`w-2 h-2 rounded-full ${marketStatus.isOpen ? 'bg-emerald-500 animate-ping' : 'bg-rose-500'}`}></span>
+                {marketStatus.statusText} ({marketStatus.mytHours})
+              </div>
+            );
+          })()}
 
           <button
             onClick={onOpenAuthModal}

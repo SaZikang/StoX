@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Search, Key, User, Loader2, Sun, Moon, Camera } from 'lucide-react';
 import { searchAlphaVantageSymbols } from '../services/alphavantage';
 import { StockLogo } from './StockLogo';
+import { getMarketStatus } from '../utils/marketHours';
 
 export function Header({ onSelectStock, onOpenApiKeyModal, hasApiKey, stocks, apiKey, user, onOpenAuthModal, theme, setTheme, onToggleTheme, onOpenSnapshotModal }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -170,10 +171,22 @@ export function Header({ onSelectStock, onOpenApiKeyModal, hasApiKey, stocks, ap
           {hasApiKey ? 'AV API Connected' : 'Connect AV API'}
         </button>
 
-        <div className={`hidden lg:flex items-center gap-2 px-3 py-2 ${isLight ? 'bg-white border-white shadow-sm shadow-slate-200/50' : 'bg-emerald-500/10 border-emerald-500/20'} rounded-xl text-xs font-mono text-emerald-600`}>
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-          NYSE/NASDAQ OPEN
-        </div>
+        {(() => {
+          const marketStatus = getMarketStatus();
+          return (
+            <div
+              className={`hidden lg:flex items-center gap-2 px-3 py-2 ${
+                marketStatus.isOpen
+                  ? (isLight ? 'bg-white border-white shadow-sm shadow-slate-200/50 text-emerald-600' : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400')
+                  : (isLight ? 'bg-white border-white shadow-sm shadow-slate-200/50 text-rose-500' : 'bg-rose-500/10 border-rose-500/20 text-rose-400')
+              } rounded-xl text-xs font-mono`}
+              title={`US Trading Hours: 9:30 AM – 4:00 PM ET\nMalaysia Time (MYT): ${marketStatus.mytHours} (${marketStatus.isEDT ? 'EDT UTC-4' : 'EST UTC-5'})`}
+            >
+              <span className={`w-2 h-2 rounded-full ${marketStatus.isOpen ? 'bg-emerald-500 animate-ping' : 'bg-rose-500'}`}></span>
+              {marketStatus.statusText} ({marketStatus.mytHours})
+            </div>
+          );
+        })()}
 
         {/* Page Description & Snapshot Camera Button */}
         <motion.button
