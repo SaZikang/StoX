@@ -63,7 +63,7 @@ export function Header({ onSelectStock, onOpenApiKeyModal, hasApiKey, stocks, ap
     <header className={`sticky top-0 h-20 ${isLight ? 'bg-white/95 border-slate-200 shadow-md text-slate-900' : 'bg-stox-card/90 border-stox-border text-slate-100'} backdrop-blur-xl border-b z-40 flex items-center justify-between px-8 transition-colors duration-300`}>
       {/* Left Title / Info */}
       <div className="flex items-center gap-4">
-        <h2 className={`text-sm font-bold ${isLight ? 'text-slate-800' : 'text-slate-200'} tracking-tight`}>Pro Trading Cockpit</h2>
+        <h2 className={`text-sm font-bold ${isLight ? 'text-slate-800' : 'text-slate-200'} tracking-tight`}>Trading Dashboard</h2>
       </div>
 
       {/* Thicker Search Bar in Middle with Interactive Expanding Animation */}
