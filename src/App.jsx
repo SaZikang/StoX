@@ -19,8 +19,10 @@ import { SnapshotModal } from './components/SnapshotModal';
 import { LandingView } from './components/LandingView';
 import { AuthView } from './components/AuthView';
 import { AccountModal } from './components/AccountModal';
+import { IntroSplash } from './components/IntroSplash';
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(() => !sessionStorage.getItem('stox_splash_shown'));
   const [appView, setAppView] = useState('landing'); // 'landing' | 'auth' | 'app'
   const [activeTab, setActiveTab] = useState('home');
   const [selectedStock, setSelectedStock] = useState(null);
@@ -314,213 +316,222 @@ export default function App() {
     setAppView('landing');
   };
 
-  if (appView === 'landing') {
-    return (
-      <LandingView
-        onEnterApp={() => setAppView('app')}
-        onOpenAuth={() => setAppView('auth')}
-        user={user}
-        theme={theme}
-        setTheme={setTheme}
-        onToggleTheme={handleThemeToggle}
-      />
-    );
-  }
-
-  if (appView === 'auth') {
-    return (
-      <AuthView
-        onBackToLanding={() => setAppView('landing')}
-        onSuccessAuth={(loggedInUser) => {
-          setUser(loggedInUser);
-          setAppView('app');
-        }}
-        theme={theme}
-        setTheme={setTheme}
-        onToggleTheme={handleThemeToggle}
-      />
-    );
-  }
-
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-[#0b0e14] text-slate-100' : 'bg-[#f8fafc] text-slate-900'} flex transition-colors duration-300 relative overflow-x-hidden`}>
-      {/* Sidebar Navigation */}
-      <Sidebar
-        activeTab={activeTab}
-        setActiveTab={handleTabChange}
-        watchlistCount={watchlist.length}
-        portfolioCount={holdings.length}
-        onReturnToLanding={() => setAppView('landing')}
-        theme={theme}
-        isCollapsed={isSidebarCollapsed}
-        setIsCollapsed={setIsSidebarCollapsed}
-      />
+    <>
+      {showSplash && (
+        <IntroSplash
+          onComplete={() => {
+            setShowSplash(false);
+            sessionStorage.setItem('stox_splash_shown', 'true');
+          }}
+        />
+      )}
 
-      {/* Main Content Area with Dynamic Sidebar Offset */}
-      <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ${isSidebarCollapsed ? 'pl-20' : 'pl-[240px]'}`}>
-        {/* Sticky Top Header with Search and Profile */}
-        <Header
-          activeTab={activeTab}
-          setActiveTab={handleTabChange}
-          onSelectStock={handleSelectStock}
-          watchlist={watchlist}
-          setWatchlist={setWatchlist}
-          onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
-          hasApiKey={Boolean(apiKey)}
-          stocks={stocks}
-          apiKey={apiKey}
+      {appView === 'landing' && (
+        <LandingView
+          onEnterApp={() => setAppView('app')}
+          onOpenAuth={() => setAppView('auth')}
           user={user}
-          onOpenAuthModal={() => setAppView('auth')}
           theme={theme}
           setTheme={setTheme}
           onToggleTheme={handleThemeToggle}
-          onOpenSnapshotModal={() => setIsSnapshotModalOpen(true)}
-          onOpenAccountModal={() => setIsAccountModalOpen(true)}
-          onLogout={handleLogout}
         />
+      )}
 
-        {/* Live Index Ticker Tape */}
-        <TickerTape stocks={stocks} onSelectStock={handleSelectStock} theme={theme} />
+      {appView === 'auth' && (
+        <AuthView
+          onBackToLanding={() => setAppView('landing')}
+          onSuccessAuth={(loggedInUser) => {
+            setUser(loggedInUser);
+            setAppView('app');
+          }}
+          theme={theme}
+          setTheme={setTheme}
+          onToggleTheme={handleThemeToggle}
+        />
+      )}
 
-        {/* Live Data Banner / Notice if no API key */}
-        {!apiKey && (
-          <div className="bg-gradient-to-r from-blue-900/40 via-indigo-900/30 to-blue-900/40 border-b border-blue-500/20 py-2.5 px-4 text-center text-xs text-slate-300 flex items-center justify-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-            <span>Running on baseline sample data. Connect your free Alpha Vantage API key to unlock <strong>real-time live market prices</strong>.</span>
-            <button
-              onClick={() => setIsApiKeyModalOpen(true)}
-              className="underline font-semibold text-blue-400 hover:text-blue-300 ml-1"
-            >
-              Connect Alpha Vantage API
-            </button>
-          </div>
-        )}
+      {appView === 'app' && (
+        <div className={`min-h-screen ${theme === 'dark' ? 'bg-[#0b0e14] text-slate-100' : 'bg-[#f8fafc] text-slate-900'} flex transition-colors duration-300 relative overflow-x-hidden`}>
+          {/* Sidebar Navigation */}
+          <Sidebar
+            activeTab={activeTab}
+            setActiveTab={handleTabChange}
+            watchlistCount={watchlist.length}
+            portfolioCount={holdings.length}
+            onReturnToLanding={() => setAppView('landing')}
+            theme={theme}
+            isCollapsed={isSidebarCollapsed}
+            setIsCollapsed={setIsSidebarCollapsed}
+          />
 
-        {isLiveActive && apiKey && (
-          <div className="bg-emerald-950/30 border-b border-emerald-500/20 py-1.5 px-4 text-center text-[11px] font-mono text-emerald-400 flex items-center justify-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-            Alpha Vantage Live API Feed Active (Rate-Limit Optimized: 5 req/min): Prices updating in real-time.
-          </div>
-        )}
-
-        {/* Main Container */}
-        <main className="flex-1 w-full px-8 pt-8">
-          {selectedStock ? (
-            <StockDetailView
-              stock={selectedStock}
-              onBack={() => {
-                setSelectedStock(null);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
+          {/* Main Content Area with Dynamic Sidebar Offset */}
+          <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ${isSidebarCollapsed ? 'pl-20' : 'pl-[240px]'}`}>
+            {/* Sticky Top Header with Search and Profile */}
+            <Header
+              activeTab={activeTab}
+              setActiveTab={handleTabChange}
+              onSelectStock={handleSelectStock}
               watchlist={watchlist}
-              toggleWatchlist={toggleWatchlist}
+              setWatchlist={setWatchlist}
+              onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
+              hasApiKey={Boolean(apiKey)}
+              stocks={stocks}
               apiKey={apiKey}
+              user={user}
+              onOpenAuthModal={() => setAppView('auth')}
+              theme={theme}
+              setTheme={setTheme}
+              onToggleTheme={handleThemeToggle}
+              onOpenSnapshotModal={() => setIsSnapshotModalOpen(true)}
+              onOpenAccountModal={() => setIsAccountModalOpen(true)}
+              onLogout={handleLogout}
+            />
+
+            {/* Live Index Ticker Tape */}
+            <TickerTape stocks={stocks} onSelectStock={handleSelectStock} theme={theme} />
+
+            {/* Live Data Banner / Notice if no API key */}
+            {!apiKey && (
+              <div className="bg-gradient-to-r from-blue-900/40 via-indigo-900/30 to-blue-900/40 border-b border-blue-500/20 py-2.5 px-4 text-center text-xs text-slate-300 flex items-center justify-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                <span>Running on baseline sample data. Connect your free Alpha Vantage API key to unlock <strong>real-time live market prices</strong>.</span>
+                <button
+                  onClick={() => setIsApiKeyModalOpen(true)}
+                  className="underline font-semibold text-blue-400 hover:text-blue-300 ml-1"
+                >
+                  Connect Alpha Vantage API
+                </button>
+              </div>
+            )}
+
+            {isLiveActive && apiKey && (
+              <div className="bg-emerald-950/30 border-b border-emerald-500/20 py-1.5 px-4 text-center text-[11px] font-mono text-emerald-400 flex items-center justify-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                Alpha Vantage Live API Feed Active (Rate-Limit Optimized: 5 req/min): Prices updating in real-time.
+              </div>
+            )}
+
+            {/* Main Container */}
+            <main className="flex-1 w-full px-8 pt-8">
+              {selectedStock ? (
+                <StockDetailView
+                  stock={selectedStock}
+                  onBack={() => {
+                    setSelectedStock(null);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  watchlist={watchlist}
+                  toggleWatchlist={toggleWatchlist}
+                  apiKey={apiKey}
+                  theme={theme}
+                />
+              ) : (
+                <>
+                  {activeTab === 'home' && (
+                    <HomeView
+                      stocks={stocks}
+                      newsList={news}
+                      newsTicker={newsTicker}
+                      isNewsLoading={isNewsLoading}
+                      newsError={newsError}
+                      onFetchNews={loadTickerNews}
+                      onSelectStock={handleSelectStock}
+                      watchlist={watchlist}
+                      toggleWatchlist={toggleWatchlist}
+                      holdings={holdings}
+                      setActiveTab={handleTabChange}
+                      user={user}
+                      theme={theme}
+                    />
+                  )}
+                  {activeTab === 'watchlist' && (
+                    <WatchlistView
+                      stocks=	{stocks}
+                      watchlist={watchlist}
+                      toggleWatchlist={toggleWatchlist}
+                      onSelectStock={handleSelectStock}
+                      theme={theme}
+                    />
+                  )}
+                  {activeTab === 'portfolio' && (
+                    <PortfolioView
+                      stocks={stocks}
+                      holdings={holdings}
+                      setHoldings={handleSetHoldings}
+                      onSelectStock={handleSelectStock}
+                      theme={theme}
+                    />
+                  )}
+                  {activeTab === 'news' && (
+                    <NewsView
+                      newsList={news}
+                      newsTicker={newsTicker}
+                      isNewsLoading={isNewsLoading}
+                      newsError={newsError}
+                      onFetchNews={loadTickerNews}
+                      theme={theme}
+                    />
+                  )}
+                </>
+              )}
+            </main>
+
+            {/* API Key Modal */}
+            <ApiKeyModal
+              isOpen={isApiKeyModalOpen}
+              onClose={() => setIsApiKeyModalOpen(false)}
+              apiKey={apiKey}
+              setApiKey={setApiKey}
+            />
+
+            {/* Auth Modal */}
+            <AuthModal
+              isOpen={isAuthModalOpen}
+              onClose={() => setIsAuthModalOpen(false)}
+              user={user}
+              setUser={setUser}
+            />
+
+            {/* Account Modal */}
+            <AccountModal
+              isOpen={isAccountModalOpen}
+              onClose={() => setIsAccountModalOpen(false)}
+              user={user}
+              onLogout={handleLogout}
               theme={theme}
             />
-          ) : (
-            <>
-              {activeTab === 'home' && (
-                <HomeView
-                  stocks={stocks}
-                  newsList={news}
-                  newsTicker={newsTicker}
-                  isNewsLoading={isNewsLoading}
-                  newsError={newsError}
-                  onFetchNews={loadTickerNews}
-                  onSelectStock={handleSelectStock}
-                  watchlist={watchlist}
-                  toggleWatchlist={toggleWatchlist}
-                  holdings={holdings}
-                  setActiveTab={handleTabChange}
-                  user={user}
-                  theme={theme}
-                />
-              )}
-              {activeTab === 'watchlist' && (
-                <WatchlistView
-                  stocks={stocks}
-                  watchlist={watchlist}
-                  toggleWatchlist={toggleWatchlist}
-                  onSelectStock={handleSelectStock}
-                  theme={theme}
-                />
-              )}
-              {activeTab === 'portfolio' && (
-                <PortfolioView
-                  stocks={stocks}
-                  holdings={holdings}
-                  setHoldings={handleSetHoldings}
-                  onSelectStock={handleSelectStock}
-                  theme={theme}
-                />
-              )}
-              {activeTab === 'news' && (
-                <NewsView
-                  newsList={news}
-                  newsTicker={newsTicker}
-                  isNewsLoading={isNewsLoading}
-                  newsError={newsError}
-                  onFetchNews={loadTickerNews}
-                  theme={theme}
-                />
-              )}
-            </>
-          )}
-        </main>
 
-        {/* API Key Modal */}
-        <ApiKeyModal
-          isOpen={isApiKeyModalOpen}
-          onClose={() => setIsApiKeyModalOpen(false)}
-          apiKey={apiKey}
-          setApiKey={setApiKey}
-        />
+            {/* Snapshot Modal */}
+            <SnapshotModal
+              isOpen={isSnapshotModalOpen}
+              onClose={() => setIsSnapshotModalOpen(false)}
+              activeTab={activeTab}
+              selectedStock={selectedStock}
+              theme={theme}
+            />
 
-        {/* Auth Modal */}
-        <AuthModal
-          isOpen={isAuthModalOpen}
-          onClose={() => setIsAuthModalOpen(false)}
-          user={user}
-          setUser={setUser}
-        />
-
-        {/* Account Modal */}
-        <AccountModal
-          isOpen={isAccountModalOpen}
-          onClose={() => setIsAccountModalOpen(false)}
-          user={user}
-          onLogout={handleLogout}
-          theme={theme}
-        />
-
-        {/* Snapshot Modal */}
-        <SnapshotModal
-          isOpen={isSnapshotModalOpen}
-          onClose={() => setIsSnapshotModalOpen(false)}
-          activeTab={activeTab}
-          selectedStock={selectedStock}
-          theme={theme}
-        />
-
-        {/* Footer */}
-        <footer className={`border-t ${theme === 'light' ? 'border-slate-200 bg-white' : 'border-stox-border bg-stox-card/40'} py-6 mt-auto`}>
-          <div className="w-full px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-lg bg-[#5865F2] flex items-center justify-center text-white font-bold text-xs">
-                <TrendingUp className="w-3.5 h-3.5" />
+            {/* Footer */}
+            <footer className={`border-t ${theme === 'light' ? 'border-slate-200 bg-white' : 'border-stox-border bg-stox-card/40'} py-6 mt-auto`}>
+              <div className="w-full px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg bg-[#5865F2] flex items-center justify-center text-white font-bold text-xs">
+                    <TrendingUp className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="font-semibold text-slate-300">StoX Financial Terminal Pro</span>
+                  <span>— Advanced Markets &amp; Analytics</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="flex items-center gap-1 text-emerald-400 font-mono">
+                    <ShieldCheck className="w-3.5 h-3.5" /> Alpha Vantage API Integration
+                  </span>
+                  <span>© 2026 StoX Inc. All rights reserved.</span>
+                </div>
               </div>
-              <span className="font-semibold text-slate-300">StoX Financial Terminal Pro</span>
-              <span>— Advanced Markets &amp; Analytics</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="flex items-center gap-1 text-emerald-400 font-mono">
-                <ShieldCheck className="w-3.5 h-3.5" /> Alpha Vantage API Integration
-              </span>
-              <span>© 2026 StoX Inc. All rights reserved.</span>
-            </div>
+            </footer>
           </div>
-        </footer>
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
