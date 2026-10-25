@@ -29,6 +29,7 @@ export default function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSnapshotModalOpen, setIsSnapshotModalOpen] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [theme, setTheme] = useState(() => localStorage.getItem('stox_theme') || 'dark');
 
   useEffect(() => {
@@ -351,10 +352,12 @@ export default function App() {
         portfolioCount={holdings.length}
         onReturnToLanding={() => setAppView('landing')}
         theme={theme}
+        isCollapsed={isSidebarCollapsed}
+        setIsCollapsed={setIsSidebarCollapsed}
       />
 
-      {/* Main Content Area with Sidebar Offset */}
-      <div className="flex-1 flex flex-col min-w-0 pl-[240px]">
+      {/* Main Content Area with Dynamic Sidebar Offset */}
+      <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ${isSidebarCollapsed ? 'pl-20' : 'pl-[240px]'}`}>
         {/* Sticky Top Header with Search and Profile */}
         <Header
           activeTab={activeTab}
