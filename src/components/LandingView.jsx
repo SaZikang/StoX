@@ -4,6 +4,7 @@ import { TrendingUp, ArrowRight, ShieldCheck, Zap, BarChart2, Newspaper, Wallet,
 import { StockLogo } from './StockLogo';
 import { AnimatedMarketBackground } from './AnimatedMarketBackground';
 import { StoXLogoAnimation } from './StoXLogoAnimation';
+import { StoXBrandHeroAnimation } from './StoXBrandHeroAnimation';
 
 export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onToggleTheme }) {
   const [activeFeatureTab, setActiveFeatureTab] = useState(0);
@@ -111,14 +112,17 @@ export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onT
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-8 pt-24 pb-20 max-w-7xl mx-auto text-center overflow-hidden">
+      <section className="relative px-8 pt-16 pb-20 max-w-7xl mx-auto text-center overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 blur-[140px] rounded-full pointer-events-none"></div>
         <div className="absolute top-1/4 right-10 w-[300px] h-[300px] bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+        {/* Dribbble Odama-Inspired Premium Minimalist Logo Animation */}
+        <StoXBrandHeroAnimation />
 
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono mb-8 shadow-inner">
             <Sparkles className="w-3.5 h-3.5 animate-spin" />
@@ -317,7 +321,7 @@ export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onT
       </motion.section>
 
       {/* Footer */}
-      <footer className={`py-12 px-8 border-t relative z-10 ${isLight ? 'bg-slate-100 border-slate-200 text-slate-600' : 'bg-slate-950 border-slate-900 text-slate-300'}`}>
+      <footer className={`py-12 px-8 border-t relative z-10 ${isLight ? 'bg-slate-100 border-slate-200 text-slate-600' : 'bg-slate-950 border-slate-800 text-slate-300'}`}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <StoXLogoAnimation isLight={isLight} />
