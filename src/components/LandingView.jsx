@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TrendingUp, ArrowRight, ShieldCheck, Zap, BarChart2, Newspaper, Wallet, Globe, Lock, CheckCircle2, Sun, Moon, Sparkles, Activity } from 'lucide-react';
 import { StockLogo } from './StockLogo';
+import { AnimatedMarketBackground } from './AnimatedMarketBackground';
 
 export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onToggleTheme }) {
   const [activeFeatureTab, setActiveFeatureTab] = useState(0);
@@ -54,7 +55,9 @@ export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onT
   ];
 
   return (
-    <div className={`min-h-screen ${isLight ? 'bg-slate-50 text-slate-900' : 'bg-[#0b0f19] text-slate-100'} font-sans selection:bg-blue-500 selection:text-white transition-colors duration-300`}>
+    <div className={`min-h-screen ${isLight ? 'bg-slate-50 text-slate-900' : 'bg-[#0b0f19] text-slate-100'} font-sans selection:bg-blue-500 selection:text-white transition-colors duration-300 relative overflow-hidden`}>
+      <AnimatedMarketBackground isLight={isLight} />
+
       {/* Top Navigation Bar */}
       <header className={`sticky top-0 z-50 backdrop-blur-xl border-b ${isLight ? 'bg-white/85 border-slate-200' : 'bg-[#0b0f19]/85 border-slate-800'} px-8 h-20 flex items-center justify-between`}>
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
@@ -189,7 +192,7 @@ export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onT
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
         id="features"
-        className={`py-24 px-8 ${isLight ? 'bg-slate-100/75 border-y border-slate-200' : 'bg-slate-900/40 border-y border-slate-800/80'}`}
+        className={`py-24 px-8 relative z-10 ${isLight ? 'bg-slate-100/75 border-y border-slate-200' : 'bg-slate-900/40 border-y border-slate-800/80'}`}
       >
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -277,7 +280,7 @@ export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onT
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
         id="markets"
-        className="py-20 px-8 max-w-7xl mx-auto text-center"
+        className="py-20 px-8 max-w-7xl mx-auto text-center relative z-10"
       >
         <span className="text-xs font-mono font-bold text-emerald-500 uppercase tracking-widest mb-3 block">Global Liquidity</span>
         <h2 className={`text-3xl md:text-4xl font-extrabold tracking-tight mb-6 ${isLight ? 'text-slate-900' : 'text-white'}`}>
@@ -319,7 +322,7 @@ export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onT
       </motion.section>
 
       {/* Footer */}
-      <footer className={`py-12 px-8 border-t ${isLight ? 'bg-slate-100 border-slate-200 text-slate-600' : 'bg-slate-950 border-slate-900 text-slate-300'}`}>
+      <footer className={`py-12 px-8 border-t relative z-10 ${isLight ? 'bg-slate-100 border-slate-200 text-slate-600' : 'bg-slate-950 border-slate-900 text-slate-300'}`}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-sm">
