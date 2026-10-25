@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BarChart2 } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 
 export function IntroSplash({ onComplete }) {
   const [stage, setStage] = useState(0);
@@ -30,8 +30,8 @@ export function IntroSplash({ onComplete }) {
       }
     };
 
-    const t1 = setTimeout(() => setStage(1), 400);   // Bar chart icon pulses & morphs
-    const t2 = setTimeout(() => setStage(2), 1100);  // Side bar sweeps open to reveal green Sto
+    const t1 = setTimeout(() => setStage(1), 400);   // Candlestick pulses
+    const t2 = setTimeout(() => setStage(2), 1100);  // Candlestick sweeps open to reveal green Sto
     const t3 = setTimeout(() => {
       setStage(3);                                 // Red X impact strike
       playCinematicAudio();
@@ -88,18 +88,22 @@ export function IntroSplash({ onComplete }) {
           )}
         </AnimatePresence>
 
-        {/* Stage 0-1: Glowing Barchart Icon Morphing into StoX */}
+        {/* Stage 0-1: Glowing Financial Candlestick Icon */}
         <div className="relative flex items-center justify-center">
           {stage < 2 && (
             <motion.div
-              initial={{ scale: 0.5, opacity: 0, rotate: -20 }}
-              animate={{ scale: [0.5, 1.2, 1], opacity: 1, rotate: 0 }}
+              initial={{ scale: 0.5, opacity: 0, y: 10 }}
+              animate={{ scale: [0.5, 1.15, 1], opacity: 1, y: 0 }}
               exit={{ scale: 0.2, opacity: 0, filter: 'blur(10px)' }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center justify-center p-8 rounded-3xl bg-emerald-500/10 border border-emerald-500/30 shadow-[0_0_50px_rgba(16,185,129,0.4)]"
+              className="flex flex-col items-center justify-center p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 shadow-[0_0_40px_rgba(16,185,129,0.4)]"
             >
-              <BarChart2 className="w-20 h-20 text-emerald-400 animate-pulse" />
-              <span className="mt-3 text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold">StoX Systems</span>
+              {/* Candlestick SVG */}
+              <svg className="w-16 h-16 text-emerald-400 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" y1="2" x2="12" y2="22"></line>
+                <rect x="8" y="7" width="8" height="10" rx="1.5" fill="currentColor" fillOpacity="0.25"></rect>
+              </svg>
+              <span className="mt-2 text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-bold">StoX Bullish</span>
             </motion.div>
           )}
 
