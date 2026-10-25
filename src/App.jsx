@@ -16,8 +16,11 @@ import { fetchYahooNews } from './services/yahooNews';
 import { supabase } from './services/supabase';
 import { AuthModal } from './components/AuthModal';
 import { SnapshotModal } from './components/SnapshotModal';
+import { LandingView } from './components/LandingView';
+import { AuthView } from './components/AuthView';
 
 export default function App() {
+  const [appView, setAppView] = useState('landing'); // 'landing' | 'auth' | 'app'
   const [activeTab, setActiveTab] = useState('home');
   const [selectedStock, setSelectedStock] = useState(null);
   const [watchlist, setWatchlist] = useState(['NVDA', 'AAPL', 'MSFT', 'PLTR']);
@@ -299,6 +302,33 @@ export default function App() {
     document.startViewTransition(updateTheme);
   };
 
+  if (appView === 'landing') {
+    return (
+      <LandingView
+        onEnterApp={() => setAppView('app')}
+        onOpenAuth={() => setAppView('auth')}
+        theme={theme}
+        setTheme={setTheme}
+        onToggleTheme={handleThemeToggle}
+      />
+    );
+  }
+
+  if (appView === 'auth') {
+    return (
+      <AuthView
+        onBackToLanding={() => setAppView('landing')}
+        onSuccessAuth={(loggedInUser) => {
+          setUser(loggedInUser);
+          setAppView('app');
+        }}
+        theme={theme}
+        setTheme={setTheme}
+        onToggleTheme={handleThemeToggle}
+      />
+    );
+  }
+
   return (
     <div className={`min-h-screen ${theme === 'dark' ? 'bg-[#0b0e14] text-slate-100' : 'bg-[#f8fafc] text-slate-900'} flex transition-colors duration-300 relative overflow-x-hidden`}>
       {/* Sidebar Navigation */}
@@ -307,6 +337,7 @@ export default function App() {
         setActiveTab={handleTabChange}
         watchlistCount={watchlist.length}
         portfolioCount={holdings.length}
+        onReturnToLanding={() => setAppView('landing')}
         theme={theme}
       />
 
@@ -324,7 +355,7 @@ export default function App() {
           stocks={stocks}
           apiKey={apiKey}
           user={user}
-          onOpenAuthModal={() => setIsAuthModalOpen(true)}
+          onOpenAuthModal={() => setAppView('auth')}
           theme={theme}
           setTheme={setTheme}
           onToggleTheme={handleThemeToggle}

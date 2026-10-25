@@ -1,7 +1,7 @@
 import React from 'react';
 import { TrendingUp, LayoutDashboard, Wallet, Bookmark, Newspaper, ShieldCheck } from 'lucide-react';
 
-export function Sidebar({ activeTab, setActiveTab, watchlistCount, portfolioCount, theme = 'dark' }) {
+export function Sidebar({ activeTab, setActiveTab, watchlistCount, portfolioCount, onReturnToLanding, theme = 'dark' }) {
   const isLight = theme === 'light';
 
   const navItems = [
@@ -14,12 +14,16 @@ export function Sidebar({ activeTab, setActiveTab, watchlistCount, portfolioCoun
   return (
     <aside className={`fixed top-0 left-0 w-[240px] h-full ${isLight ? 'bg-white border-slate-200 shadow-2xl shadow-slate-200/50 text-slate-900' : 'bg-stox-card border-stox-border text-slate-100'} z-50 flex flex-col select-none transition-colors duration-300`}>
       {/* Logo */}
-      <div className={`p-6 flex items-center gap-3 border-b ${isLight ? 'border-slate-100' : 'border-stox-border/60'}`}>
-        <div className="w-9 h-9 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-400/30">
+      <div
+        onClick={onReturnToLanding}
+        className={`p-6 flex items-center gap-3 border-b cursor-pointer group ${isLight ? 'border-slate-100 hover:bg-slate-50' : 'border-stox-border/60 hover:bg-stox-cardHover'} transition-colors`}
+        title="Return to Startup Page"
+      >
+        <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-400/30 group-hover:scale-105 transition-transform">
           <TrendingUp className="w-5 h-5" />
         </div>
         <div>
-          <span className={`text-lg font-bold tracking-tight ${isLight ? 'text-slate-900' : 'text-slate-100'}`}>StoX</span>
+          <span className={`text-lg font-bold tracking-tight group-hover:text-blue-500 transition-colors ${isLight ? 'text-slate-900' : 'text-slate-100'}`}>StoX</span>
           <span className="block text-[9px] uppercase tracking-widest text-blue-500 font-semibold -mt-1">Terminal Pro</span>
         </div>
       </div>
