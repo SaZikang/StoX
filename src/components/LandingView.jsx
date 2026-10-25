@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { TrendingUp, ArrowRight, ShieldCheck, Zap, BarChart2, Newspaper, Wallet, Globe, Lock, CheckCircle2, Sun, Moon, Sparkles, Activity } from 'lucide-react';
 import { StockLogo } from './StockLogo';
 import { AnimatedMarketBackground } from './AnimatedMarketBackground';
+import { StoXLogoAnimation } from './StoXLogoAnimation';
 
 export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onToggleTheme }) {
   const [activeFeatureTab, setActiveFeatureTab] = useState(0);
@@ -60,14 +61,8 @@ export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onT
 
       {/* Top Navigation Bar */}
       <header className={`sticky top-0 z-50 backdrop-blur-xl border-b ${isLight ? 'bg-white/85 border-slate-200' : 'bg-[#0b0f19]/85 border-slate-800'} px-8 h-20 flex items-center justify-between`}>
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <div className="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-black shadow-lg shadow-blue-500/30 text-lg">
-            S
-          </div>
-          <div>
-            <span className="text-xl font-extrabold tracking-tight text-blue-500">StoX</span>
-            <span className={`text-[10px] block font-mono font-semibold uppercase tracking-wider ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Financial Terminal</span>
-          </div>
+        <div className="cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <StoXLogoAnimation isLight={isLight} />
         </div>
 
         <nav className="hidden md:flex items-center gap-8 text-xs font-semibold font-mono tracking-wide">
@@ -325,10 +320,7 @@ export function LandingView({ onEnterApp, onOpenAuth, user, theme, setTheme, onT
       <footer className={`py-12 px-8 border-t relative z-10 ${isLight ? 'bg-slate-100 border-slate-200 text-slate-600' : 'bg-slate-950 border-slate-900 text-slate-300'}`}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-sm">
-              S
-            </div>
-            <span className={`text-sm font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>StoX Financial Terminal</span>
+            <StoXLogoAnimation isLight={isLight} />
           </div>
 
           <div className="text-xs font-mono">
