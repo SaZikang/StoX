@@ -22,7 +22,7 @@ import { AccountModal } from './components/AccountModal';
 import { IntroSplash } from './components/IntroSplash';
 
 export default function App() {
-  const [showSplash, setShowSplash] = useState(() => !sessionStorage.getItem('stox_splash_shown'));
+  const [showSplash, setShowSplash] = useState(true);
   const [appView, setAppView] = useState('landing'); // 'landing' | 'auth' | 'app'
   const [activeTab, setActiveTab] = useState('home');
   const [selectedStock, setSelectedStock] = useState(null);
@@ -322,7 +322,6 @@ export default function App() {
         <IntroSplash
           onComplete={() => {
             setShowSplash(false);
-            sessionStorage.setItem('stox_splash_shown', 'true');
           }}
         />
       )}
@@ -447,7 +446,7 @@ export default function App() {
                   )}
                   {activeTab === 'watchlist' && (
                     <WatchlistView
-                      stocks=	{stocks}
+                      stocks={stocks}
                       watchlist={watchlist}
                       toggleWatchlist={toggleWatchlist}
                       onSelectStock={handleSelectStock}
