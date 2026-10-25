@@ -228,7 +228,7 @@ export function Navbar({ activeTab, setActiveTab, onSelectStock, watchlist, setW
                 title={`US Trading Hours: 9:30 AM – 4:00 PM ET\nMalaysia Time (MYT): ${marketStatus.mytHours} (${marketStatus.isEDT ? 'EDT UTC-4' : 'EST UTC-5'})`}
               >
                 <span className={`w-2 h-2 rounded-full ${marketStatus.isOpen ? 'bg-emerald-500 animate-ping' : 'bg-rose-500'}`}></span>
-                {marketStatus.statusText} ({marketStatus.mytHours})
+                {marketStatus.statusText}
               </div>
             );
           })()}
