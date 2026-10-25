@@ -5,6 +5,7 @@ import { COUNTRY_STOCKS } from '../data/stocks';
 import { StockLogo } from './StockLogo';
 import { NewsTickerForm } from './NewsTickerForm';
 import { ArticleModal } from './ArticleModal';
+import { fetchPortfolioHistory, recordPortfolioSnapshot } from '../utils/portfolioHistory';
 
 function AnimatedNumber({ value, prefix = "$", decimals = 2, isPositive = null }) {
   const [displayValue, setDisplayValue] = useState(0);
@@ -39,12 +40,15 @@ function AnimatedNumber({ value, prefix = "$", decimals = 2, isPositive = null }
   );
 }
 
-export function HomeView({ stocks, newsList, newsTicker, isNewsLoading, newsError, onFetchNews, onSelectStock, watchlist, toggleWatchlist, holdings = [], setActiveTab, theme = 'dark' }) {
+export function HomeView({ stocks, newsList, newsTicker, isNewsLoading, newsError, onFetchNews, onSelectStock, watchlist, toggleWatchlist, holdings = [], setActiveTab, user, theme = 'dark' }) {
   const [selectedCountry, setSelectedCountry] = useState('malaysia');
   const [expandedNews, setExpandedNews] = useState(null);
   const [aiSummary, setAiSummary] = useState('');
   const [isSummarizing, setIsSummarizing] = useState(false);
   const [hoveredPoint, setHoveredPoint] = useState(null);
+  const [momentumPoints, setMomentumPoints] = useState([
+    { date: 'Today', val: 0 }
+  ]);
 
   const isLight = theme === 'light';
 
@@ -93,15 +97,18 @@ export function HomeView({ stocks, newsList, newsTicker, isNewsLoading, newsErro
     }
   };
 
-  // Generate Portfolio Momentum Chart Data with Dates
-  const today = new Date();
-  const rawVals = [totalEquity * 0.94, totalEquity * 0.96, totalEquity * 0.95, totalEquity * 0.98, totalEquity * 0.97, totalEquity];
-  const momentumPoints = rawVals.map((val, idx) => {
-    const d = new Date(today);
-    d.setDate(d.getDate() - (rawVals.length - 1 - idx));
-    const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' });
-    return { date: dateStr, val };
-  });
+  // Load actual historical portfolio snapshots (capturing daily closing amounts at 11:59 PM / end of day)
+  useEffect(() => {
+    async function loadHistory() {
+      if (totalEquity <= 0) return;
+      await recordPortfolioSnapshot(user, totalEquity);
+      const history = await fetchPortfolioHistory(user, totalEquity);
+      if (history && history.length > 0) {
+        setMomentumPoints(history);
+      }
+    }
+    loadHistory();
+  }, [totalEquity, user]);
 
   const minM = Math.min(...momentumPoints.map(p => p.val));
   const maxM = Math.max(...momentumPoints.map(p => p.val));

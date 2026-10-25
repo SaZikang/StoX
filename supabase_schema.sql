@@ -98,3 +98,33 @@ $$;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
+
+
+-- 5. Create Portfolio Snapshots table for historical daily valuation tracking
+create table public.portfolio_snapshots (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  date date not null,
+  total_value numeric not null,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  unique(user_id, date)
+);
+
+-- Enable RLS on portfolio_snapshots
+alter table public.portfolio_snapshots enable row level security;
+
+create policy "Users can view their own portfolio snapshots."
+  on public.portfolio_snapshots for select
+  using ( auth.uid() = user_id );
+
+create policy "Users can insert their own portfolio snapshots."
+  on public.portfolio_snapshots for insert
+  with check ( auth.uid() = user_id );
+
+create policy "Users can update their own portfolio snapshots."
+  on public.portfolio_snapshots for update
+  using ( auth.uid() = user_id );
+
+create policy "Users can delete their own portfolio snapshots."
+  on public.portfolio_snapshots for delete
+  using ( auth.uid() = user_id );

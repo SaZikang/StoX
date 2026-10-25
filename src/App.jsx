@@ -384,6 +384,7 @@ export default function App() {
                   toggleWatchlist={toggleWatchlist}
                   holdings={holdings}
                   setActiveTab={handleTabChange}
+                  user={user}
                   theme={theme}
                 />
               )}
