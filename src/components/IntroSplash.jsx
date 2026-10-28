@@ -1,93 +1,155 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { TrendingUp } from 'lucide-react';
 
 export function IntroSplash({ onComplete }) {
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setStage(1), 200);   // Bar emerges
-    const t2 = setTimeout(() => setStage(2), 900);   // StoX text sweeps open
-    const t3 = setTimeout(() => setStage(3), 2000);  // Fade out / complete
-    const t4 = setTimeout(() => {
-      if (onComplete) onComplete();
-    }, 2500);
+    const playCinematicAudio = () => {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.6);
+
+        gain.gain.setValueAtTime(0.9, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.6);
+      } catch (e) {
+        // Audio ignored if blocked
+      }
+    };
+
+    const t1 = setTimeout(() => setStage(1), 400);   // Candlestick pulses
+    const t2 = setTimeout(() => setStage(2), 1100);  // Candlestick sweeps open to reveal green Sto
+    const t3 = setTimeout(() => {
+      setStage(3);                                 // Red X impact strike
+      playCinematicAudio();
+    }, 1800);
+    const t4 = setTimeout(() => setStage(4), 3800);  // Hold 2 full seconds
+    const t5 = setTimeout(() => {
+      onComplete();                                // Zoom out & reveal startup page
+    }, 4500);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
       clearTimeout(t4);
+      clearTimeout(t5);
     };
   }, [onComplete]);
 
   return (
     <motion.div
-      initial={{ opacity: 1 }}
-      animate={stage >= 3 ? { opacity: 0, scale: 1.05 } : { opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed inset-0 z-[99999] bg-[#0b0f19] flex flex-col items-center justify-center overflow-hidden select-none"
+      initial={{ opacity: 1, scale: 1 }}
+      animate={stage === 4 ? { scale: 3.2, opacity: 0 } : { scale: 1, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      style={{ willChange: 'transform, opacity' }}
+      className="fixed inset-0 z-[99999] bg-[#070a12] flex flex-col items-center justify-center overflow-hidden select-none"
     >
-      {/* Background ambient glow */}
-      <div className="absolute w-[600px] h-[600px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none"></div>
+      {/* Background Ambient Financial Grids & Glowing Orbs */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-950/20 via-[#070a12] to-[#070a12] pointer-events-none"></div>
+      <div className="absolute w-[900px] h-[900px] bg-emerald-500/10 blur-[180px] rounded-full pointer-events-none animate-pulse"></div>
 
-      <div className="relative flex items-center gap-5 z-10">
-        {/* Minimalist Candlestick Icon Box */}
-        <motion.div
-          initial={{ scale: 0, opacity: 0, rotate: -20 }}
-          animate={{ scale: 1, opacity: 1, rotate: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-14 h-14 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl flex items-center justify-center overflow-hidden"
-        >
-          {/* Subtle Candlestick Chart */}
-          <div className="relative w-6 h-6 flex items-end justify-around gap-1">
+      {/* Grid Pattern Overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+      <div className="relative flex items-center justify-center z-10">
+        {/* Shockwave Ring Burst on X impact */}
+        <AnimatePresence>
+          {stage >= 3 && (
+            <>
+              <motion.div
+                initial={{ scale: 0.2, opacity: 1 }}
+                animate={{ scale: 3.5, opacity: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="absolute w-56 h-56 rounded-full border-2 border-rose-500 pointer-events-none shadow-[0_0_60px_rgba(244,63,94,0.9)]"
+              />
+              <motion.div
+                initial={{ scale: 0.1, opacity: 1 }}
+                animate={{ scale: 2.5, opacity: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
+                className="absolute w-40 h-40 rounded-full border border-emerald-400 pointer-events-none shadow-[0_0_40px_rgba(16,185,129,0.8)]"
+              />
+            </>
+          )}
+        </AnimatePresence>
+
+        {/* Stage 0-1: Glowing Financial Candlestick Icon */}
+        <div className="relative flex items-center justify-center">
+          {stage < 2 && (
             <motion.div
-              initial={{ height: 0 }}
-              animate={{ height: "65%" }}
-              transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
-              className="w-1 bg-rose-500 rounded-full relative"
+              initial={{ scale: 0.5, opacity: 0, y: 10 }}
+              animate={{ scale: [0.5, 1.15, 1], opacity: 1, y: 0 }}
+              exit={{ scale: 0.2, opacity: 0, filter: 'blur(10px)' }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center justify-center p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 shadow-[0_0_40px_rgba(16,185,129,0.4)]"
             >
-              <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-[1px] h-3 bg-rose-400"></div>
+              {/* Candlestick SVG */}
+              <svg className="w-16 h-16 text-emerald-400 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" y1="2" x2="12" y2="22"></line>
+                <rect x="8" y="7" width="8" height="10" rx="1.5" fill="currentColor" fillOpacity="0.25"></rect>
+              </svg>
+              <span className="mt-2 text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-bold">StoX Bullish</span>
             </motion.div>
+          )}
+
+          {/* Stage 2+: Side Bar Sweeping Open & StoX Wordmark Reveal */}
+          {stage >= 2 && (
             <motion.div
-              initial={{ height: 0 }}
-              animate={{ height: "100%" }}
-              transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
-              className="w-1.5 bg-emerald-500 rounded-full relative shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: [0, 1, 0.9] }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center text-8xl md:text-[12rem] font-black tracking-tight font-mono relative px-8 py-4"
             >
-              <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-[1px] h-4 bg-emerald-400"></div>
+              {/* Bullish Green 'Sto' */}
+              <motion.div
+                initial={{ x: -60, opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
+                animate={{ x: 0, opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center text-emerald-400 drop-shadow-[0_0_40px_rgba(16,185,129,0.7)]"
+              >
+                Sto
+              </motion.div>
+
+              {/* Red 'X' striking in with impact punch */}
+              <motion.span
+                initial={{ opacity: 0, scale: 5, x: 120, filter: 'blur(15px)' }}
+                animate={stage >= 3 ? { opacity: 1, scale: 1, x: 0, filter: 'blur(0px)' } : {}}
+                transition={{ duration: 0.22, type: "spring", stiffness: 450, damping: 18 }}
+                className="inline-block text-rose-500 drop-shadow-[0_0_55px_rgba(244,63,94,1)] ml-2 relative"
+              >
+                X
+              </motion.span>
             </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Side bar emerging out and revealing StoX */}
-        <div className="relative overflow-hidden flex items-baseline">
-          {/* Emerging background bar / clip */}
-          <motion.div
-            initial={{ scaleX: 0, originX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 bg-blue-600/15 rounded-xl -inset-x-2 -inset-y-1 pointer-events-none"
-          />
-
-          <motion.div
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-baseline font-mono tracking-tight text-4xl md:text-5xl font-extrabold px-2 py-1 relative z-10"
-          >
-            <span className="text-white">Sto</span>
-            <span className="text-emerald-500 ml-0.5 font-black">X</span>
-          </motion.div>
+          )}
         </div>
       </div>
 
+      {/* Cinematic Tagline Badge */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-        className="mt-6 text-xs font-mono uppercase tracking-[0.3em] text-slate-400 font-semibold"
+        initial={{ opacity: 0, y: 25 }}
+        animate={stage >= 2 ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.4, delay: 0.2 }}
+        className="mt-12 text-center z-10"
       >
-        Precision Financial Intelligence
+        <div className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold uppercase tracking-[0.4em] shadow-xl backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>Financial Intelligence Terminal</span>
+        </div>
       </motion.div>
     </motion.div>
   );
