@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, LayoutDashboard, Wallet, Bookmark, Newspaper, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
+import { TrendingUp, LayoutDashboard, Wallet, Bookmark, Newspaper, ShieldCheck, ChevronLeft, ChevronRight, Activity } from 'lucide-react';
 
 export function Sidebar({ activeTab, setActiveTab, watchlistCount, portfolioCount, onReturnToLanding, theme = 'dark', isCollapsed, setIsCollapsed }) {
   const isLight = theme === 'light';
@@ -10,6 +10,7 @@ export function Sidebar({ activeTab, setActiveTab, watchlistCount, portfolioCoun
     { id: 'portfolio', label: 'Portfolio', icon: Wallet, count: portfolioCount },
     { id: 'watchlist', label: 'Watchlist', icon: Bookmark, count: watchlistCount },
     { id: 'news', label: 'News Feed', icon: Newspaper },
+    { id: 'analysis', label: 'Analysis', icon: Activity },
   ];
 
   return (

@@ -1,0 +1,795 @@
+{
+  "version": 1,
+  "historyId": "bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42",
+  "currentRevision": "7b208c35-5e41-445a-b307-9d5af8343c77",
+  "pendingChanges": true,
+  "files": {
+    "AGENTS.md": {
+      "hash": "1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060",
+      "content": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/1b/1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060"
+    },
+    "CLAUDE.md": {
+      "hash": "1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060",
+      "content": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/1b/1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060"
+    },
+    "hyperframes.json": {
+      "hash": "53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50",
+      "content": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/53/53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
+    },
+    "index.html": {
+      "hash": "27f4ef51a5eff26b70775cefcd290f7833464b8c9775346cdcb2a8fa5090e09f",
+      "content": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/27/27f4ef51a5eff26b70775cefcd290f7833464b8c9775346cdcb2a8fa5090e09f"
+    },
+    "meta.json": {
+      "hash": "ed7f0adb9d35e5a3ec6fee2f326c1e4e6e302ffafa659d064a873149c3043023",
+      "content": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/ed/ed7f0adb9d35e5a3ec6fee2f326c1e4e6e302ffafa659d064a873149c3043023"
+    },
+    "package.json": {
+      "hash": "bf960148ac32ed09244b5fdfc55e4957568a96a7779ab461056bea0e891ded50",
+      "content": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/bf/bf960148ac32ed09244b5fdfc55e4957568a96a7779ab461056bea0e891ded50"
+    }
+  },
+  "revisions": {
+    "bc0c7dcc-ae1c-4c82-a924-72fe4b06e167": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793155443735,
+      "endedAt": 1793155443735,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/ef/efe507ac1444076e399e3b410a2f3726a5475432ba1e4629b606ddf86d05162f",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/8e/8e9af93a2cdc6b4b8bc4ddc9ee9ec8c23e83fc8f7882aa944b143b86c9270243"
+        }
+      }
+    },
+    "a262fbca-1d78-4ef0-8f3d-e284fae14586": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793155540668,
+      "endedAt": 1793155540668,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/8e/8e9af93a2cdc6b4b8bc4ddc9ee9ec8c23e83fc8f7882aa944b143b86c9270243",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/26/2694aef873a3df4e0590cc1c7c8885ac740f02064c33d3b082a3a7fe7c511223"
+        }
+      }
+    },
+    "b00f86da-818f-4566-ad99-b469ae57a6e3": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793155690031,
+      "endedAt": 1793155692032,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/26/2694aef873a3df4e0590cc1c7c8885ac740f02064c33d3b082a3a7fe7c511223",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/16/1671e5870f6d8fbb1b4da1001d89fc195ee7c3eaec3c1bdff6c04e1c86e819ae"
+        }
+      }
+    },
+    "eda4191a-0121-4ccf-82ef-70c8221169f9": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793155712925,
+      "endedAt": 1793155714926,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/16/1671e5870f6d8fbb1b4da1001d89fc195ee7c3eaec3c1bdff6c04e1c86e819ae",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/80/809531f2403337c858b8f3323d417c9cd91138aa1d22b2ab644d32cf67baa2d7"
+        }
+      }
+    },
+    "99b1538a-089a-4643-a725-8ec3d8488859": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793155813310,
+      "endedAt": 1793155815312,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/80/809531f2403337c858b8f3323d417c9cd91138aa1d22b2ab644d32cf67baa2d7",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/57/57f0fb09d2a394bcf94540789310d110cfcf1da9085a99d6ba5e05b9ce0e09f4"
+        }
+      }
+    },
+    "e3cd9f85-17db-4396-b3d8-e1b95fa262a2": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793155831512,
+      "endedAt": 1793155833513,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/57/57f0fb09d2a394bcf94540789310d110cfcf1da9085a99d6ba5e05b9ce0e09f4",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/36/36a0f5f630348ecc4a5f741aef85d6d19553a71ef2b2008c17e43314037cfde5"
+        }
+      }
+    },
+    "0e20225d-b0a2-40df-b799-3c7e531d7f40": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793156155321,
+      "endedAt": 1793156157321,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/36/36a0f5f630348ecc4a5f741aef85d6d19553a71ef2b2008c17e43314037cfde5",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/49/49a829abd66583b19b5f44940ae6449d0626937bfa50c76aa6e445d00e806a82"
+        }
+      }
+    },
+    "5bfb6f24-69fb-4d84-a6ea-bd14c93021fe": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793156329881,
+      "endedAt": 1793156331880,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/49/49a829abd66583b19b5f44940ae6449d0626937bfa50c76aa6e445d00e806a82",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/c3/c36db28b52cbe5f34965b53146a1e43afd6fb346d51d5fc102ad36a5de06f6d1"
+        }
+      }
+    },
+    "c03a167d-75e3-4c6d-97a0-3e9f03799541": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793156344268,
+      "endedAt": 1793156346269,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/c3/c36db28b52cbe5f34965b53146a1e43afd6fb346d51d5fc102ad36a5de06f6d1",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/fe/fe7a3fad0d2cbedb495d190de239608e6ea347bc799d6c1ec2f1521013537dd3"
+        }
+      }
+    },
+    "1f23a4ec-6b07-41cb-8236-bdd1dfbda616": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793156371222,
+      "endedAt": 1793156373224,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/fe/fe7a3fad0d2cbedb495d190de239608e6ea347bc799d6c1ec2f1521013537dd3",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/f3/f382ef6cc9bfdfe35fc3c51389ff56c55e769c6ef4cbe2615863dcfdb21e92e9"
+        }
+      }
+    },
+    "405dbbcc-110d-4ded-8291-474c81c16ad5": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793156444626,
+      "endedAt": 1793156446627,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/f3/f382ef6cc9bfdfe35fc3c51389ff56c55e769c6ef4cbe2615863dcfdb21e92e9",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/e9/e98590631372640791b3a094bb8f45d921b8d503b1d216a9843b912c99e43063"
+        }
+      }
+    },
+    "4766de17-4dc1-48a0-91d6-5580c04db9b1": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793156461236,
+      "endedAt": 1793156463237,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/e9/e98590631372640791b3a094bb8f45d921b8d503b1d216a9843b912c99e43063",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/ae/aeeab6ec2d8321e21905143de9125b73d2dda08669689c202760a9ea58b5c733"
+        }
+      }
+    },
+    "dfa56d50-792c-42f7-ae9b-e758e21e89b6": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793157051913,
+      "endedAt": 1793157053914,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/ae/aeeab6ec2d8321e21905143de9125b73d2dda08669689c202760a9ea58b5c733",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/de/de36cef837e1c32fc1cd1a46178f6ac442b612ee98f1e89f7eccd5f6f1d9626b"
+        }
+      }
+    },
+    "4a506afe-2956-4fea-9dc9-704a0e2fe54c": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793157232141,
+      "endedAt": 1793157234142,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/de/de36cef837e1c32fc1cd1a46178f6ac442b612ee98f1e89f7eccd5f6f1d9626b",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/0d/0d8542ec402057d913ef5674cce1456c275d999f91d7bca6b29970e9e41c3115"
+        }
+      }
+    },
+    "6519117e-9d1b-426c-852d-2b2a8994e27e": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793157302162,
+      "endedAt": 1793157304163,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/0d/0d8542ec402057d913ef5674cce1456c275d999f91d7bca6b29970e9e41c3115",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/2c/2c5facae95615c668e5d61524f0b137f3e558eaffc18eb8bc539c69ee1278f24"
+        }
+      }
+    },
+    "e926364e-6fee-42df-8383-8fa48c5e6670": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793157341517,
+      "endedAt": 1793157343518,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/2c/2c5facae95615c668e5d61524f0b137f3e558eaffc18eb8bc539c69ee1278f24",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/76/76d84f0efa5b6a4155d4254935d1d8244eecc9a3eadf6406bdc57860f19ccdc4"
+        }
+      }
+    },
+    "7b208c35-5e41-445a-b307-9d5af8343c77": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793158140830,
+      "endedAt": 1793158142832,
+      "files": {
+        "index.html": {
+          "before": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/76/76d84f0efa5b6a4155d4254935d1d8244eecc9a3eadf6406bdc57860f19ccdc4",
+          "after": "/Users/zikangsa/.cache/hyperframes/history/bbb1d341-0e3f-4cb2-a854-b6bcd1bebb42/blobs/a9/a9f242d2ead94bd8e565a4dbcd109e6ce34121c482a3bb27b874649b0766379d"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": "7b208c35-5e41-445a-b307-9d5af8343c77",
+      "id": "db6808cd-7348-45bb-baef-18117b3af3f2"
+    },
+    "revisions": {
+      "bc0c7dcc-ae1c-4c82-a924-72fe4b06e167": [
+        {
+          "id": "1a3b3bdc-0d2b-4c3c-a023-df8f8ab5d545",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/1a3b3bdc-0d2b-4c3c-a023-df8f8ab5d545.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793155445059,
+          "contentHash": "2f4a25cd25124a632358be4059a80b1d04cec473715637891dd9408fed3ce595",
+          "revision": "bc0c7dcc-ae1c-4c82-a924-72fe4b06e167",
+          "inputFingerprint": "bd13cd5c161bfd11ab6952ff5a9e96563385746c0ea443bc5f652f0f8bf094fb",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "b00f86da-818f-4566-ad99-b469ae57a6e3": [
+        {
+          "id": "41c3ef87-7573-4454-8420-062a067f5027",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/41c3ef87-7573-4454-8420-062a067f5027.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793155705229,
+          "contentHash": "3fc51657611007f415bccef4bf183870d8c79d2de174df3f4f6fb4c0ca04290c",
+          "revision": "b00f86da-818f-4566-ad99-b469ae57a6e3",
+          "inputFingerprint": "a85d89a2221d2f2b239fafd22954a4bbe8a6260c976849264a11c88aebbe4a8c",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "eda4191a-0121-4ccf-82ef-70c8221169f9": [
+        {
+          "id": "3eca5053-85d0-449a-bd3a-e8de300164e0",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/3eca5053-85d0-449a-bd3a-e8de300164e0.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793155719777,
+          "contentHash": "ffdf3ece6f57fa29c0169c6340b327503cad786655e7a88397c59889beabdcab",
+          "revision": "eda4191a-0121-4ccf-82ef-70c8221169f9",
+          "inputFingerprint": "4d68cb146bdbb935f6c98e647cce9bd22b76e0bd58fefb21a80ffed804e8cd32",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "99b1538a-089a-4643-a725-8ec3d8488859": [
+        {
+          "id": "48699a97-f419-4f64-b97b-2af47f272d74",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/48699a97-f419-4f64-b97b-2af47f272d74.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793155820923,
+          "contentHash": "dcd99af8136649643f9694b32e38511ab9c9ea182bc55fcfee65d71c3693bba3",
+          "revision": "99b1538a-089a-4643-a725-8ec3d8488859",
+          "inputFingerprint": "ea5bd074620a24db713a9a2a33cc81ed246e1ba25413420f0209acdfb6b1f531",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "e3cd9f85-17db-4396-b3d8-e1b95fa262a2": [
+        {
+          "id": "2c7905e1-267d-46d1-889d-db567c9a25d1",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/2c7905e1-267d-46d1-889d-db567c9a25d1.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793155839277,
+          "contentHash": "b97dc0dfe85e217983b750f99522f33cafc80e31a6fdbd1fa275c5ae155a7a40",
+          "revision": "e3cd9f85-17db-4396-b3d8-e1b95fa262a2",
+          "inputFingerprint": "dc28b4977eb3abb72802c4b2f84a5409ff98c2b3772b0fb81cbd1539abdd1745",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "0e20225d-b0a2-40df-b799-3c7e531d7f40": [
+        {
+          "id": "2120cc52-6534-4aaf-b2a5-cee8e698fe5e",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/2120cc52-6534-4aaf-b2a5-cee8e698fe5e.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793156167860,
+          "contentHash": "dd10b91c03920790374c63b66cdcd1fdbd80451ffbcc2628d2380a22e649d3e4",
+          "revision": "0e20225d-b0a2-40df-b799-3c7e531d7f40",
+          "inputFingerprint": "ff379dce98da94b2ac6c7c5c1e546b214f9d68ced960df1a22a43cb2d87ea02e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "5bfb6f24-69fb-4d84-a6ea-bd14c93021fe": [
+        {
+          "id": "b2650366-613a-4bba-bd38-6615e7294172",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/b2650366-613a-4bba-bd38-6615e7294172.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793156338373,
+          "contentHash": "43bb2eebb9fdb6f5607657f8244e417d5ce726c159739faaf3f187e6bbd88986",
+          "revision": "5bfb6f24-69fb-4d84-a6ea-bd14c93021fe",
+          "inputFingerprint": "a13e12047d858ab94bb8548cf3893e7cd56622c6b8255cc4e4c047261f16c861",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "c03a167d-75e3-4c6d-97a0-3e9f03799541": [
+        {
+          "id": "fc072c13-1640-4b42-a582-e64d594e3752",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/fc072c13-1640-4b42-a582-e64d594e3752.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793156351709,
+          "contentHash": "4cfb6cc8c27a921369f9c8b71274189f38f2671a3c936243b4883d0fbe2e8fc0",
+          "revision": "c03a167d-75e3-4c6d-97a0-3e9f03799541",
+          "inputFingerprint": "d3148b8890b4ff09213a643b0c5e46b033f5899fecf393c2614382dae20b56c6",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "1f23a4ec-6b07-41cb-8236-bdd1dfbda616": [
+        {
+          "id": "32cf38ca-5559-4aca-8e89-7305547aff70",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/32cf38ca-5559-4aca-8e89-7305547aff70.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793156379577,
+          "contentHash": "201caf053513b91be8cb2a526a796cc762b92ad9460b273ecd52519df5f6bdca",
+          "revision": "1f23a4ec-6b07-41cb-8236-bdd1dfbda616",
+          "inputFingerprint": "df1410116d463e407c9b0c9383b91df25e5252f55bf20ca8f52d17025c48f61b",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "405dbbcc-110d-4ded-8291-474c81c16ad5": [
+        {
+          "id": "dd7b1eb7-ef42-499b-9f9e-0d4c7ea312a3",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/dd7b1eb7-ef42-499b-9f9e-0d4c7ea312a3.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793156454571,
+          "contentHash": "66e161a558f904bd126e63ab475c65c3c8466923dacaaf1863a14f66af91ad3f",
+          "revision": "405dbbcc-110d-4ded-8291-474c81c16ad5",
+          "inputFingerprint": "93937145c9e558f6df12aca64ec4c608fda7b409e861cf09165f44ea54b5efea",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "4766de17-4dc1-48a0-91d6-5580c04db9b1": [
+        {
+          "id": "7e936e29-b3cc-46d0-a25d-1ec1781941fb",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/7e936e29-b3cc-46d0-a25d-1ec1781941fb.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793156470178,
+          "contentHash": "c3ba215e6848edd2b17faead19e87df4a8a0c5160d4a3da7d210bf4af2b5d917",
+          "revision": "4766de17-4dc1-48a0-91d6-5580c04db9b1",
+          "inputFingerprint": "1177c5e25e09dffdb77b39522d27e7efff4bb0a2e8126ce9585e4eb13dcda3d6",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "dfa56d50-792c-42f7-ae9b-e758e21e89b6": [
+        {
+          "id": "a4805aa1-592b-4628-be32-db05b2058093",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/a4805aa1-592b-4628-be32-db05b2058093.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793157061684,
+          "contentHash": "ac56b2d575af0ad1dff525a63683c5f8fd4854c6f2da0461137efc42b49bfd6e",
+          "revision": "dfa56d50-792c-42f7-ae9b-e758e21e89b6",
+          "inputFingerprint": "97b9e278389d76dfb57b21117cf57fc663df6b1b8ba9f1e38b7c7b53a893aa33",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "4a506afe-2956-4fea-9dc9-704a0e2fe54c": [
+        {
+          "id": "a303a52a-a479-4bf3-8d75-21da6863a65a",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/a303a52a-a479-4bf3-8d75-21da6863a65a.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793157240513,
+          "contentHash": "b97dc0dfe85e217983b750f99522f33cafc80e31a6fdbd1fa275c5ae155a7a40",
+          "revision": "4a506afe-2956-4fea-9dc9-704a0e2fe54c",
+          "inputFingerprint": "537b24e0ac0fc685ef7ab0fc472d166c5763496f0c977f45855502c4bd701d85",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "6519117e-9d1b-426c-852d-2b2a8994e27e": [
+        {
+          "id": "62970c1a-91ae-4301-9f25-7bc06a6b4936",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/62970c1a-91ae-4301-9f25-7bc06a6b4936.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793157310892,
+          "contentHash": "299661b9eb2964fb940f03f6b8f83c3f1f6deae39555beaa9bcff6f64a02090f",
+          "revision": "6519117e-9d1b-426c-852d-2b2a8994e27e",
+          "inputFingerprint": "f7b963ebf521fcb6a2eecc971848d7675f2c9bf22b227a7ee08f55a52fac9442",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "e926364e-6fee-42df-8383-8fa48c5e6670": [
+        {
+          "id": "168d8b58-6781-4348-ab6e-09e3ceb44a40",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/168d8b58-6781-4348-ab6e-09e3ceb44a40.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793157350370,
+          "contentHash": "49c6e31caad515b6b6346601cc93a99f487f07e61e45f163c7d8790f2c113650",
+          "revision": "e926364e-6fee-42df-8383-8fa48c5e6670",
+          "inputFingerprint": "53842bcb759dd2b72179ddf0015cb6820a9474270df12224e911cfe25ac02041",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "7b208c35-5e41-445a-b307-9d5af8343c77": [
+        {
+          "id": "db6808cd-7348-45bb-baef-18117b3af3f2",
+          "scope": "project",
+          "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/db6808cd-7348-45bb-baef-18117b3af3f2.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793158150897,
+          "contentHash": "25ab2b475c346c5901b93ab98d95ff6938b461cf5923471d2034810da8d9f0ae",
+          "revision": "7b208c35-5e41-445a-b307-9d5af8343c77",
+          "inputFingerprint": "919bfd3826a8b16b570d6725dadfacf5850977a7c8cac554c93cf93ad40123e9",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "id": "efc8de52-ccea-4c80-a19d-6d11af366e44",
+        "scope": "project",
+        "report": "/Users/zikangsa/Downloads/python project/StoX/intro-video/.hyperframes/artifacts/checks/efc8de52-ccea-4c80-a19d-6d11af366e44.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 10000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1793155423607,
+        "contentHash": "18830c449f0d5bb9d39e79d7b6994e47088a214b6f8ebb91888d969afed62e76",
+        "revision": null,
+        "inputFingerprint": "df8560f6fd00e6deebb8d87f8277159398016c2a9d90f2b1c57427af78a75855",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  }
+}

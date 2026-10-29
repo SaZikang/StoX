@@ -20,6 +20,7 @@ import { LandingView } from './components/LandingView';
 import { AuthView } from './components/AuthView';
 import { AccountModal } from './components/AccountModal';
 import { IntroSplash } from './components/IntroSplash';
+import { AnalysisView } from './components/AnalysisView';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -405,7 +406,13 @@ export default function App() {
 
             {/* Main Container */}
             <main className="flex-1 w-full px-8 pt-8">
-              {selectedStock ? (
+              {activeTab === 'analysis' ? (
+                <AnalysisView
+                  symbol={selectedStock ? selectedStock.symbol : "TSLA"}
+                  theme={theme}
+                  onBackToStock={selectedStock ? () => setSelectedStock(selectedStock) : () => handleTabChange('home')}
+                />
+              ) : selectedStock ? (
                 <StockDetailView
                   stock={selectedStock}
                   onBack={() => {

@@ -3,7 +3,7 @@ import { ArrowUpRight, ArrowDownRight, Bookmark, ArrowLeft, Sliders, Edit3, Doll
 import { StockLogo } from './StockLogo';
 import { fetchAlphaVantageTimeSeries } from '../services/alphavantage';
 
-export function StockDetailView({ stock, onBack, watchlist, toggleWatchlist, apiKey, theme = 'dark' }) {
+export function StockDetailView({ stock, onBack, watchlist, toggleWatchlist, apiKey, onOpenAnalysis, theme = 'dark' }) {
   const [timeframe, setTimeframe] = useState('1D');
   const [activeIndicators, setActiveIndicators] = useState({
     sma20: true,
@@ -221,6 +221,15 @@ export function StockDetailView({ stock, onBack, watchlist, toggleWatchlist, api
             >
               <DollarSign className="w-3.5 h-3.5" /> Trade {stock.symbol || 'Asset'}
             </button>
+
+            {onOpenAnalysis && (
+              <button
+                onClick={() => onOpenAnalysis(stock)}
+                className="flex items-center gap-2 px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-md shadow-blue-600/30 transition-all"
+              >
+                <Activity className="w-3.5 h-3.5" /> Analysis
+              </button>
+            )}
           </div>
         )}
       </div>

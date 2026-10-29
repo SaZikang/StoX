@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__tailwindReady=new Promise(function(resolve){
+        var loaded=document.readyState==="complete";
+        var resolved=false;
+        var observer;
+        function readTailwindCss(){var styles=document.querySelectorAll("style");for(var i=styles.length-1;i>=0;i--){var text=styles[i].textContent||"";if(text.indexOf("tailwindcss v")!==-1)return text;}return "";}
+        function finish(){if(resolved||!loaded||!readTailwindCss())return;resolved=true;if(observer)observer.disconnect();resolve(true);}
+        observer=new MutationObserver(finish);
+        observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+        if(loaded){finish();}else{window.addEventListener("load",function(){loaded=true;finish();},{once:true});}
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js" integrity="sha384-v5YF9xS+gLRWdvrQ0u/WRbCkjSIH0NjHIPe8tBL1ZRrmI7PiSH6LLdzs0aAIMCuh" crossorigin="anonymous"></script>
+    <style>
+      :root {
+        --ground: #030712;
+        --ink: #ffffff;
+        --font-display: Inter, system-ui, -apple-system, sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html, body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+        font-family: var(--font-display);
+      }
+      #root {
+        width: 1920px;
+        height: 1080px;
+        position: relative;
+        overflow: hidden;
+        background: #030712;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="4.5"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Epic Cinematic Background Glow & Light Streak -->
+      <div id="epic-bg" class="clip absolute inset-0 bg-[#030712] flex items-center justify-center overflow-hidden" data-start="0" data-duration="4.5" data-track-index="0" data-layout-allow-overflow>
+        <div class="absolute w-[1000px] h-[1000px] bg-blue-600/20 blur-[200px] rounded-full"></div>
+        <div id="slash-light" class="absolute w-[200px] h-[1400px] bg-gradient-to-r from-transparent via-blue-400/40 to-transparent blur-[60px] rotate-[-35deg] opacity-0 scale-75"></div>
+      </div>
+
+      <!-- Exactly 3 Sleek Candlesticks Appearing FIRST (0s - 1.8s) -->
+      <div id="candles-3" class="clip absolute inset-0 flex items-center justify-center gap-16 z-10 opacity-0" data-start="0" data-duration="1.8" data-track-index="1">
+        <div class="candle flex flex-col items-center justify-center"><div class="w-1 bg-emerald-400 h-16"></div><div class="w-8 bg-emerald-500 h-56 rounded-sm shadow-xl shadow-emerald-500/40 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.5)]"></div><div class="w-1 bg-emerald-400 h-16"></div></div>
+        <div class="candle flex flex-col items-center justify-center"><div class="w-1 bg-red-400 h-20"></div><div class="w-8 bg-red-500 h-72 rounded-sm shadow-xl shadow-red-500/40 filter drop-shadow-[0_0_20px_rgba(239,68,68,0.5)]"></div><div class="w-1 bg-red-400 h-20"></div></div>
+        <div class="candle flex flex-col items-center justify-center"><div class="w-1 bg-emerald-400 h-24"></div><div class="w-8 bg-emerald-500 h-80 rounded-sm shadow-xl shadow-emerald-500/40 filter drop-shadow-[0_0_25px_rgba(16,185,129,0.6)]"></div><div class="w-1 bg-emerald-400 h-24"></div></div>
+      </div>
+
+      <!-- Epic Floating Typography Appearing AFTER Candlesticks (1.5s - 4.5s) -->
+      <div id="logo-reveal" class="clip absolute inset-0 flex flex-col items-center justify-center z-20" data-start="1.5" data-duration="3.0" data-track-index="2">
+
+        <div class="flex items-baseline font-mono tracking-tighter text-[160px] font-black select-none">
+          <span id="char-s" class="text-white opacity-0 transform translate-y-10 scale-90 filter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">S</span>
+          <span id="char-t" class="text-white opacity-0 transform translate-y-10 scale-90 filter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">t</span>
+          <span id="char-o" class="text-white opacity-0 transform translate-y-10 scale-90 filter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">o</span>
+          <span id="char-x" class="text-blue-400 ml-6 opacity-0 transform translate-y-16 scale-125 filter drop-shadow-[0_0_50px_rgba(59,130,246,0.9)]">X</span>
+        </div>
+
+        <div id="epic-tagline" class="text-3xl font-mono text-white uppercase tracking-[0.5em] mt-6 opacity-0 transform translate-y-6 font-bold">
+          INSTITUTIONAL QUANTITATIVE TERMINAL
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // 1. Candlesticks appear FIRST (0s - 1.5s)
+      tl.fromTo("#candles-3", { scaleY: 0.1, opacity: 0, y: 80 }, { scaleY: 1, opacity: 0.9, y: 0, duration: 0.8, ease: "back.out(1.7)" }, 0);
+
+      // 2. Candlesticks fade out completely right as the logo appears (at 1.4s)
+      tl.to("#candles-3", { opacity: 0, scale: 1.15, duration: 0.4, ease: "power2.in" }, 1.4);
+
+      // 3. Epic light slash sweep & logo letters appear (1.5s onwards)
+      tl.fromTo("#slash-light", { x: -900, opacity: 0 }, { x: 900, opacity: 0.9, duration: 1.0, ease: "power2.inOut" }, 1.4);
+
+      tl.to("#char-s", { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(2)" }, 1.5);
+      tl.to("#char-t", { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(2)" }, 1.6);
+      tl.to("#char-o", { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(2)" }, 1.7);
+      tl.to("#char-x", { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power4.out" }, 1.8);
+
+      // Tagline reveal
+      tl.to("#epic-tagline", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 2.0);
+
+      // Cinematic fade out at the end
+      tl.to("#root", { opacity: 0, duration: 0.5, ease: "power2.in" }, 4.0);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

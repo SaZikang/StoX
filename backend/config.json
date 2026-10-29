@@ -1,0 +1,21 @@
+{
+  "verdict_thresholds": {
+    "favorable_win_rate": 0.55,
+    "unfavorable_win_rate": 0.45,
+    "min_samples_confidence": 20
+  },
+  "simulation": {
+    "replays": 10000,
+    "seed": 19,
+    "window": 2
+  },
+  "plan": {
+    "stop_rule": "or_mid",
+    "target_r": 1.0,
+    "flat_by": "15:55"
+  },
+  "sizing": {
+    "default_account_size": 5000,
+    "default_max_loss": 50
+  }
+}

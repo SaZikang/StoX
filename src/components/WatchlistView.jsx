@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Bookmark, ArrowUpRight, ArrowDownRight, Trash2 } from 'lucide-react';
+import { Bookmark, ArrowUpRight, ArrowDownRight, Trash2, BarChart2 } from 'lucide-react';
 import { StockLogo } from './StockLogo';
 
-export function WatchlistView({ stocks, watchlist, toggleWatchlist, onSelectStock, theme = 'dark' }) {
+export function WatchlistView({ stocks, watchlist, toggleWatchlist, onSelectStock, onOpenAnalysis, theme = 'dark' }) {
   const watchedStocks = stocks.filter(s => watchlist.includes(s.symbol));
   const isLight = theme === 'light';
 
@@ -32,7 +32,7 @@ export function WatchlistView({ stocks, watchlist, toggleWatchlist, onSelectStoc
                   <th className="py-4 px-6 text-right">Price</th>
                   <th className="py-4 px-6 text-right">Change (%)</th>
                   <th className="py-4 px-6 text-right">Market Cap</th>
-                  <th className="py-4 px-6 text-center">Action</th>
+                  <th className="py-4 px-6 text-center">Actions</th>
                 </tr>
               </thead>
               <tbody className={`divide-y ${isLight ? 'divide-slate-100' : 'divide-stox-border'} text-sm`}>
@@ -59,16 +59,30 @@ export function WatchlistView({ stocks, watchlist, toggleWatchlist, onSelectStoc
                     </td>
                     <td className={`py-4 px-6 text-right font-mono text-xs ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>{stock.marketCap}</td>
                     <td className="py-4 px-6 text-center">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleWatchlist(stock.symbol);
-                        }}
-                        className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
-                        title="Remove from Watchlist"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                      <div className="flex items-center justify-center gap-2">
+                        {onOpenAnalysis && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onOpenAnalysis(stock);
+                            }}
+                            className="px-3 py-1.5 rounded-xl bg-blue-600/10 text-blue-500 hover:bg-blue-600 hover:text-white text-xs font-bold transition-all flex items-center gap-1.5"
+                            title="Run Day-Trading Analysis"
+                          >
+                            <BarChart2 className="w-3.5 h-3.5" /> Analysis
+                          </button>
+                        )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleWatchlist(stock.symbol);
+                          }}
+                          className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                          title="Remove from Watchlist"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
